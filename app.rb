@@ -2,7 +2,6 @@
 require 'rubygems'
 require 'sinatra'
 require 'twilio-ruby'
-require './environments'
 
 
 # create a route to render the home page
