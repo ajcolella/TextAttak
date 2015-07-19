@@ -2,7 +2,13 @@
 require 'rubygems'
 require 'sinatra'
 require 'twilio-ruby'
+require 'shopify_api'
+require 'byebug'
 
+def init
+  ShopifyAPI::Base.site = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_PASSWORD']}@textattak.myshopify.com/admin"
+  Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+end
 
 # create a route to render the home page
 get '/' do
@@ -10,11 +16,9 @@ get '/' do
 end
  
 # create a route to handle the POST request to the form
-post '/send' do
-
-  client = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], 
-    ENV['TWILIO_AUTH_TOKEN']
- 
+post '/arnold' do
+  client = init
+  byebug
   # Get POST parameters submitted by the user through the form
   to_number = params[:phone].split(',')
   message = params[:message]
@@ -55,7 +59,7 @@ post '/send' do
     'I am cumming all the time'
   ]
   to_number.each do |number|
-    10.times.each do 
+    1.times.each do 
       message = client.account.messages.create(
         :to => number,
         :body => message_text.sample.upcase,
