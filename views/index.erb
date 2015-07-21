@@ -10,11 +10,29 @@
     </style>
 </head>
 <body>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+        </script>
+        <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                  alert();
+                $.post("http://localhost:4567/arnold",
+                {
+                  name: "Donald Duck",
+                  city: "Duckburg"
+                },
+                function(data,status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+            });
+        });
+    </script>
     <h1>Send Yourself A Picture</h1>
     <form action="/arnold" method="POST">
         <input type="text" name="phone" placeholder="enter a phone number"/>
         <input type="text" name="message" placeholder="optional - include a text message"/>
         <input type="submit" value="Send me the picture!"/>
     </form>
+    <button></button>
 </body>
 </html>

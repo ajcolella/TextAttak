@@ -7,6 +7,7 @@ gem "sinatra"
 gem "twilio-ruby"
 gem "shopify_api"
 gem "byebug"
+gem 'rack-cors', require: 'rack/cors'
 
 group :development do
  gem 'sqlite3'

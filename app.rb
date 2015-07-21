@@ -4,6 +4,7 @@ require 'sinatra'
 require 'twilio-ruby'
 require 'shopify_api'
 require 'byebug'
+require 'rack/cors'
 
 def init
   ShopifyAPI::Base.site = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_PASSWORD']}@textattak.myshopify.com/admin"
@@ -18,9 +19,9 @@ end
 # create a route to handle the POST request to the form
 post '/arnold' do
   client = init
-  byebug
+
   # Get POST parameters submitted by the user through the form
-  to_number = params[:phone].split(',')
+  to_number = params[:phone].length > 1 ? params[:phone].split(',') : [params[:phone]]
   message = params[:message]
   media_url = [
     'http://cdn3.whatculture.com/wp-content/uploads/2012/08/Arnold-Schwarzenegger-Is-BackIn-Bronze1.jpg',
@@ -29,7 +30,6 @@ post '/arnold' do
     'http://screenrant.com/wp-content/uploads/The-Legend-of-Conan-Arnold-Schwarzenegger.jpg',
     'http://vignette1.wikia.nocookie.net/mst3k/images/9/91/RiffTrax_Presents-_Arnold_Schwarzenegger_in_The_Running_Man.jpg/revision/latest?cb=20140628084153',
     'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQTOeAfavj-fET-IBdGtHgVzhpile23s-9W0t2lmKzol5B4o0aA6w',
-    'http://klyker.com/wp-content/uploads/2014/06/this-wax-statue-of-arnold-schwarzenegger-is-gross-2.jpg',
     'http://www.btchflcks.com/wp-content/uploads/2014/12/Arnold-Schwarzenegger.jpg',
     'https://hippoversuswhale.files.wordpress.com/2010/03/predator_1.jpg',
     'http://www.geeksofdoom.com/GoD/img/2011/11/2011-11-20-schwarzeneggerrecall-533x288.png',
@@ -59,7 +59,7 @@ post '/arnold' do
     'I am cumming all the time'
   ]
   to_number.each do |number|
-    1.times.each do 
+    10.times.each do 
       message = client.account.messages.create(
         :to => number,
         :body => message_text.sample.upcase,
