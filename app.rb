@@ -6,10 +6,37 @@ require 'shopify_api'
 require 'byebug'
 require 'rack/cors'
 
+ALLOW_HEADERS = 'Accept, Authorization'
+ALLOW_METHODS = 'GET, POST, PUT, PATCH, DELETE OPTIONS, LINK, UNLINK'
+ALLOW_MAX_AGE = 10 * 60 # 10 minutes in seconds
+
+helpers do
+  def authenticate!
+    auth = "FIX ME" #TODO request.env['HTTP_AUTHORIZATION'].to_s
+    halt 403 if auth.nil? || auth.empty? # Do some custom logic here
+  end
+
+  def init_api_keys
+    ShopifyAPI::Base.site = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_PASSWORD']}@textattak.myshopify.com/admin"
+    @twilio = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+  end
+end
+
 before do
-  byebug
-  ShopifyAPI::Base.site = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_PASSWORD']}@textattak.myshopify.com/admin"
-  @twilio = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
+  puts request.env
+  # Accept any cross-site requests from the client.
+  response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN']
+  # Do not require authentication for preflight requests.
+  return if request.options?
+
+  authenticate!
+  init_api_keys
+end
+
+options '*' do
+  headers 'Access-Control-Allow-Headers' => ALLOW_HEADERS,
+          'Access-Control-Allow-Methods' => ALLOW_METHODS,
+          'Access-Control-Max-Age'       => ALLOW_MAX_AGE
 end
 
 # create a route to render the home page
@@ -17,9 +44,6 @@ get '/' do
   erb :index
 end
 
-# options '/arnold' do
-
- 
 post '/arnold' do
   to_number = params[:phone].length > 1 ? params[:phone].split(',') : [params[:phone]]
   message = params[:message]
