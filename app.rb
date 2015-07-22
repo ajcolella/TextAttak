@@ -7,9 +7,7 @@ require 'byebug'
 require 'rack/cors'
 
 before do
-  response.headers["Access-Control-Allow-Origin"] = "*"
-  response.headers["Access-Control-Allow-Methods"] = "POST"
-  p response.headers.inspect
+  byebug
   ShopifyAPI::Base.site = "https://#{ENV['SHOPIFY_API_KEY']}:#{ENV['SHOPIFY_PASSWORD']}@textattak.myshopify.com/admin"
   @twilio = Twilio::REST::Client.new ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN']
 end
@@ -18,6 +16,9 @@ end
 get '/' do
   erb :index
 end
+
+# options '/arnold' do
+
  
 post '/arnold' do
   to_number = params[:phone].length > 1 ? params[:phone].split(',') : [params[:phone]]
