@@ -24,7 +24,6 @@ class TextAttakApi < Sinatra::Base
   end
 
   before do
-    byebug
     puts request.env
     # Accept any cross-site requests from the client.
     response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN'] || request.env['SERVER_NAME']
