@@ -7,7 +7,7 @@ require 'byebug'
 require 'rack/ssl'
 
 class TextAttakApi < Sinatra::Base
-  # use Rack::SSL unless ENV['RACK_ENV'] == 'development'
+  use Rack::SSL unless ENV['RACK_ENV'] == 'development'
 
   ALLOW_HEADERS = 'Accept, Authorization'
   ALLOW_METHODS = 'GET, POST, PUT, PATCH, DELETE OPTIONS, LINK, UNLINK'
