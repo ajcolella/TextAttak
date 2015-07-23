@@ -48,6 +48,7 @@ class TextAttakApi < Sinatra::Base
   end
 
   post '/arnold' do
+    byebug
     to_number = params[:phone].length > 1 ? params[:phone].split(',') : [params[:phone]]
     message = params[:message]
     media_url = [

@@ -1,6 +1,6 @@
 
 $( document ).ready(function() {
-  $.post( "http://api.textattak.com/arnold",
+  $.post( "https://api.textattak.com/arnold",
   { id: Shopify.checkout.order_id },
   function( data ) {
     alert(Shopify.checkout.order_id);
