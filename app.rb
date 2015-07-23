@@ -4,12 +4,11 @@ require 'sinatra'
 require 'twilio-ruby'
 require 'shopify_api'
 require 'byebug'
-require 'rack/cors'
-require 'sinatra/activerecord/rake'
+require 'rack/ssl'
 
 class TextAttakApi < Sinatra::Base
-  use Rack::SSL
-  
+  # use Rack::SSL unless ENV['RACK_ENV'] == 'development'
+
   ALLOW_HEADERS = 'Accept, Authorization'
   ALLOW_METHODS = 'GET, POST, PUT, PATCH, DELETE OPTIONS, LINK, UNLINK'
   ALLOW_MAX_AGE = 10 * 60 # 10 minutes in seconds

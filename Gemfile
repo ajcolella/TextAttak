@@ -7,8 +7,8 @@ gem "sinatra"
 gem "twilio-ruby"
 gem "shopify_api"
 gem "byebug"
-gem "rack-cors", require: "rack/cors"
-gem "activerecord"
+gem "sinatra-activerecord"
+gem "rack-ssl"
 
 group :development do
  gem 'sqlite3'
