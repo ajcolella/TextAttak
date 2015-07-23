@@ -49,6 +49,10 @@ class TextAttakApi < Sinatra::Base
 
   post '/arnold' do
     byebug
+    puts params
+    # halt 403 if params[:id].nil?
+    order_id = ShopifyAPI::Order.find(id: params[:id])
+    puts order_id
     to_number = params[:phone].length > 1 ? params[:phone].split(',') : [params[:phone]]
     message = params[:message]
     media_url = [
