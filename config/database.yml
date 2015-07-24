@@ -1,0 +1,16 @@
+development:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: textattak_development
+  username: ooo
+  password:
+
+test:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: textattak_test
+  username: ooo
+  password:
+  template: template0

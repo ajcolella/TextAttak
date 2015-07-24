@@ -1,22 +1,15 @@
-# require app dependencies
-require 'rubygems'
-require 'sinatra'
-require 'twilio-ruby'
-require 'shopify_api'
-require 'byebug'
-require 'rack/ssl'
+require_relative 'base'
 
-class TextAttakApi < Sinatra::Base
-  use Rack::SSL unless ENV['RACK_ENV'] == 'development'
+class TextAttakApi < TextAttak
+  # ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/textattak_development')
 
   ALLOW_HEADERS = 'Accept, Authorization'
-  ALLOW_METHODS = 'GET, POST, PUT, PATCH, DELETE OPTIONS, LINK, UNLINK'
-  ALLOW_MAX_AGE = 10 * 60 # 10 minutes in seconds
+  ALLOW_METHODS = 'GET, POST'
+  ALLOW_MAX_AGE = 2 * 60
 
   helpers do
-    def authenticate!
-      auth = "FIX ME" #TODO request.env['HTTP_AUTHORIZATION'].to_s
-      halt 403 if auth.nil? || auth.empty? # Do some custom logic here
+    def authenticate!(params)
+      # halt 403 unless params[:key] =~ ENV['TA_AUTHENITCATION_KEY'] # TODO actually secure this and create unauthorized error
     end
 
     def init_api_keys
@@ -31,8 +24,8 @@ class TextAttakApi < Sinatra::Base
     response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN'] || request.env['SERVER_NAME']
     # Do not require authentication for preflight requests.
     return if request.options?
-
-    authenticate!
+    puts params
+    authenticate!(params)
     init_api_keys
   end
 
@@ -42,16 +35,26 @@ class TextAttakApi < Sinatra::Base
             'Access-Control-Max-Age'       => ALLOW_MAX_AGE
   end
 
-  # create a route to render the home page
   get '/' do
     erb :index
   end
 
+  get '/unsubscribe' do
+    # TODO create unsubscribe list
+  end
+
   post '/arnold' do
     byebug
-    puts params
-    # halt 403 if params[:id].nil?
-    order_id = ShopifyAPI::Order.find(id: params[:id])
+    params['id'] = 879120067
+    raise 'TODO missing params fail' if params[:id].nil?
+    begin
+      order = ShopifyAPI::Order.first(id: params[:id])
+    rescue
+      puts 'TODO fail'
+    end
+    raise 'TODO order already fulfilled' if order.fulfilment_status == 'fulfilled'
+    raise 'TODO invalid phone #' if false #TODO valid phone number check
+    raise 'TODO user has blocked textattak' if false # TODO check that user will receive texts
     puts order_id
     to_number = params[:phone].length > 1 ? params[:phone].split(',') : [params[:phone]]
     message = params[:message]
@@ -96,8 +99,7 @@ class TextAttakApi < Sinatra::Base
           :to => number,
           :body => message_text.sample.upcase,
           :media_url => media_url.sample,
-       
-          :from => ENV['TWILIO_NUMBER']
+          :from => ENV['TWILIO_NUMBER'] # TODO generate twilio numbers
         )
       end
     end

@@ -19,7 +19,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.0)
-    bond (0.5.1)
     builder (3.2.2)
     byebug (5.0.0)
       columnize (= 0.9.0)
@@ -33,20 +32,8 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
-    rack-ssl (1.4.1)
-      rack
-    rack-test (0.6.3)
-      rack (>= 1.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
-    ripl (0.7.1)
-      bond (~> 0.5.1)
-    ripl-multi_line (0.3.1)
-      ripl (>= 0.3.6)
-    ripl-rack (0.2.1)
-      rack (>= 1.0)
-      rack-test (~> 0.6.2)
-      ripl (>= 0.7.0)
     shopify_api (4.0.4)
       activeresource
       rack
@@ -57,14 +44,8 @@ GEM
     sinatra-activerecord (2.0.6)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
-    sqlite3 (1.3.10)
     thread_safe (0.3.5)
     tilt (2.0.1)
-    tux (0.3.0)
-      ripl (>= 0.3.5)
-      ripl-multi_line (>= 0.2.4)
-      ripl-rack (>= 0.2.0)
-      sinatra (>= 1.2.1)
     twilio-ruby (4.2.1)
       builder (>= 2.1.2)
       jwt (~> 1.0)
@@ -76,12 +57,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord
   byebug
   pg
-  rack-ssl
   shopify_api
   sinatra
   sinatra-activerecord
-  sqlite3
-  tux
   twilio-ruby
