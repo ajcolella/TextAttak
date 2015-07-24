@@ -32,6 +32,8 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rack-ssl (1.4.1)
+      rack
     rails-observers (0.1.2)
       activemodel (~> 4.0)
     shopify_api (4.0.4)
@@ -60,6 +62,7 @@ DEPENDENCIES
   activerecord
   byebug
   pg
+  rack-ssl
   shopify_api
   sinatra
   sinatra-activerecord
