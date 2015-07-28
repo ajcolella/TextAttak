@@ -30,6 +30,7 @@ GEM
     minitest (5.7.0)
     multi_json (1.11.0)
     pg (0.18.2)
+    phony (2.14.11)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -64,6 +65,7 @@ DEPENDENCIES
   byebug
   erubis
   pg
+  phony
   rack-ssl
   shopify_api
   sinatra
