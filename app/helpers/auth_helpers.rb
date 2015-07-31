@@ -16,7 +16,6 @@ module Sinatra
         httponly: true
       }
       if !request.safe?
-        byebug
         if session[:csrf] == params['_csrf'] && session[:csrf] == request.cookies['ta_auth_token']
         else
           halt 403, 'CSRF failed'

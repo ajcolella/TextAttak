@@ -55,7 +55,7 @@ class TextAttakApi < TextAttak
   # end
 
   post '/attak' do
-    byebug
+    puts params
     params['id'] = 879120067
     raise 'TODO missing params fail' if params[:id].nil?
     begin
