@@ -18,8 +18,11 @@ ActiveRecord::Schema.define(version: 20150726173212) do
 
   create_table "attaks", force: :cascade do |t|
     t.string  "name"
+    t.string  "variant_id"
     t.date    "last_sent"
     t.integer "count"
+    t.integer "ordered"
+    t.integer "paired"
   end
 
   create_table "images", force: :cascade do |t|
@@ -34,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150726173212) do
 
   create_table "users", force: :cascade do |t|
     t.integer "shopify_id"
-    t.integer "phone_number"
+    t.string "phone"
     t.boolean "opt_out"
   end
 

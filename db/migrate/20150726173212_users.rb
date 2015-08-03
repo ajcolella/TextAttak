@@ -2,7 +2,7 @@ class Users < ActiveRecord::Migration
   def up
     create_table :users do |u|
       u.integer :shopify_id
-      u.integer :phone
+      u.string :phone
       u.boolean :opt_out
     end
   end
