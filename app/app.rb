@@ -8,7 +8,7 @@ class TextAttakApi < TextAttak
     # Accept any cross-site requests from the client.
     response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN'] #|| request.env['SERVER_NAME'] # TODO <-- this is for localhost
     return if request.options? # Do not require authentication for preflight requests
-    authenticate!(params) #TODO actual request auth with shopify
+    authenticate!(params) unless request.env['HTTP_ORIGIN'] == 'https://checkout.shopify.com' #TODO actual request auth with shopify
     init_api_keys
   end
 
