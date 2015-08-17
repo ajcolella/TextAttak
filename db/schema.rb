@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20150726173212) do
 
   create_table "users", force: :cascade do |t|
     t.integer "shopify_id"
-    t.string "phone"
+    t.string  "phone"
     t.boolean "opt_out"
   end
 

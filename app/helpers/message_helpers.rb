@@ -35,56 +35,55 @@ module Sinatra
       # Send back a simple text response that the message was sent
       puts "***************** Message sent! SID: #{message.sid} *****************"
     end
-  end
-
-  def validate_recipient(phone)
-    user = User.first_or_create(phone: phone)
-    if user.opt_out == true
-      raise 'TODO User has opted out' 
-      user = nil
-    end
-    user.phone
-  end
-
-  def get_media_urls(attak)
-    media_urls = Image.where(attak_id: attak) # TODO limit query
-    media_urls.shuffle unless attak.ordered
-    media_urls[0..attak.count]
-  end
-
-  def get_message_texts(attak)
-    message_texts = Text.where(attak_id: attak)
-    message_texts.shuffle unless attak.ordered
-    message_texts[0..attak.count]
-  end
-
-  def send_message(to, text, media_url, from)
-    message_params = {}
-    message_params[:to] = to
-    message_params[:from] = from
-    message_params[:body] = text unless text.empty?
-    message_params[:media_url] = media_url unless media_url.empty?
-
-    sent = 
-      begin
-        @twilio.account.messages.create(message_params)
-        true
-      rescue
-        false
+  
+    def validate_recipient(phone)
+      user = User.first_or_create(phone: phone)
+      if user.opt_out == true
+        raise 'TODO User has opted out' 
+        user = nil
       end
-    sent
-  end
+      user.phone
+    end
 
-  def fulfill_order(order, line_item) # TODO move to Order helpers
-    begin
-      f = ShopifyAPI::Fulfillment.new(:order_id => order.id, :line_items =>[ {"id" => line_item.id} ] )
-      f.prefix_options = { :order_id => order.id }
-      f.save
-      puts "***************** Line Item Fulfilled! ID: #{line_item.id} *****************"
-    rescue
-      puts 'Fulfillment failure ID: #{line_item.id}'
+    def get_media_urls(attak)
+      media_urls = Image.where(attak_id: attak) # TODO limit query
+      media_urls.shuffle unless attak.ordered
+      media_urls[0..attak.count]
+    end
+
+    def get_message_texts(attak)
+      message_texts = Text.where(attak_id: attak)
+      message_texts.shuffle unless attak.ordered
+      message_texts[0..attak.count]
+    end
+
+    def send_message(to, text, media_url, from)
+      message_params = {}
+      message_params[:to] = to
+      message_params[:from] = from
+      message_params[:body] = text unless text.empty?
+      message_params[:media_url] = media_url unless media_url.empty?
+
+      sent = 
+        begin
+          @twilio.account.messages.create(message_params)
+          true
+        rescue
+          false
+        end
+      sent
+    end
+
+    def fulfill_order(order, line_item) # TODO move to Order helpers
+      begin
+        f = ShopifyAPI::Fulfillment.new(:order_id => order.id, :line_items =>[ {"id" => line_item.id} ] )
+        f.prefix_options = { :order_id => order.id }
+        f.save
+        puts "***************** Line Item Fulfilled! ID: #{line_item.id} *****************"
+      rescue
+        puts 'Fulfillment failure ID: #{line_item.id}'
+      end
     end
   end
-
   helpers MessageHelpers
 end

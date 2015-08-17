@@ -38,10 +38,14 @@ class TextAttakApi < TextAttak
     paired = params[:paired] || 0 # TODO not implemented yet
     if attak = Attak.first_or_create(name: params[:name], variant_id: params[:variant_id])
       attak.update(count: params[:count], ordered: ordered, paired: paired)
-      (1..10).each do |i|
-        Image.first_or_create(image_url: params[i.to_s], attak_id: attak.id) unless params[i.to_s].empty?
-        Text.first_or_create(message: params[(i + 20).to_s], attak_id: attak.id) unless params[(i + 20).to_s].empty?
-      end
+      img_urls = params[:urls].delete("\r").split("\n")
+      img_urls.each { |url| Image.create(image_url: url, attak_id: attak.id) }
+      texts = params[:texts].delete("\r").split("\n")
+      texts.each { |text| Text.create(message: text, attak_id: attak.id) }
+      # (1..10).each do |i|
+      #   Image.first_or_create(image_url: params[i.to_s], attak_id: attak.id) unless params[i.to_s].empty?
+      #   Text.first_or_create(message: params[(i + 20).to_s], attak_id: attak.id) unless params[(i + 20).to_s].empty?
+      # end
     end
 
     'ATTTAK CREATED'
@@ -92,7 +96,11 @@ class TextAttakApi < TextAttak
     puts "***************** Attak sent! #{order.name} - #{order.id} *****************"
   end
 
-
+  post '/arnold' do
+    byebug
+    url = 'https://cdn.shopify.com/s/files/1/0925/4656/products/schwarzeneggerTR.jpg?v=1437251583'
+    send_message(params[:phone], 'test', url, ENV['TWILIO_NUMBER'])
+  end
   # post '/validate' do
   #   # TODO validate phone numbers before checkout screen and add them to the order
   #   from_user = valid_user(order.user_id) #TODO valid phone number check

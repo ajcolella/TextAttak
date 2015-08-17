@@ -1,50 +1,47 @@
 <h1>Create a new Attak</h1>
 <form action="/new_attak" method="POST">
-  NAME:<input type="text" name="name" placeholder="Attak Name"/>
-  VARIANT_ID:<input type="text" name="variant_id" placeholder="Variant Id"/>
-  COUNT:<input type="text" name="count" placeholder="Number of messages sent"/>
-  ORDERED:<input type="text" name="ordered" placeholder="Will they be in the following order (1 or 0)"/>
-  PAIRED<input type="text" name="paired" placeholder="Will the text be paired with specific images (1 or 0)"/>
-  1<input type="text" name="1" placeholder="image url"/>
-  <input type="text" name="21" placeholder="text message"/>
-  2<input type="text" name="2" placeholder="image url"/>
-  <input type="text" name="22" placeholder="text message"/>
-  3<input type="text" name="3" placeholder="image url"/>
-  <input type="text" name="23" placeholder="text message"/>
-  4<input type="text" name="4" placeholder="image url"/>
-  <input type="text" name="24" placeholder="text message"/>
-  5<input type="text" name="5" placeholder="image url"/>
-  <input type="text" name="25" placeholder="text message"/>
-  6<input type="text" name="6" placeholder="image url"/>
-  <input type="text" name="26" placeholder="text message"/>
-  7<input type="text" name="7" placeholder="image url"/>
-  <input type="text" name="27" placeholder="text message"/>
-  8<input type="text" name="8" placeholder="image url"/>
-  <input type="text" name="28" placeholder="text message"/>
-  9<input type="text" name="9" placeholder="image url"/>
-  <input type="text" name="29" placeholder="text message"/>
-  10<input type="text" name="10" placeholder="image url"/>
-  <input type="text" name="30" placeholder="text message"/>
-  11<input type="text" name="11" placeholder="image url"/>
-  <input type="text" name="31" placeholder="text message"/>
-  12<input type="text" name="12" placeholder="image url"/>
-  <input type="text" name="32" placeholder="text message"/>
-  13<input type="text" name="13" placeholder="image url"/>
-  <input type="text" name="33" placeholder="text message"/>
-  14<input type="text" name="14" placeholder="image url"/>
-  <input type="text" name="34" placeholder="text message"/>
-  15<input type="text" name="15" placeholder="image url"/>
-  <input type="text" name="35" placeholder="text message"/>
-  16<input type="text" name="16" placeholder="image url"/>
-  <input type="text" name="36" placeholder="text message"/>
-  17<input type="text" name="17" placeholder="image url"/>
-  <input type="text" name="37" placeholder="text message"/>
-  18<input type="text" name="18" placeholder="image url"/>
-  <input type="text" name="38" placeholder="text message"/>
-  19<input type="text" name="19" placeholder="image url"/>
-  <input type="text" name="39" placeholder="text message"/>
-  20<input type="text" name="20" placeholder="image url"/>
-  <input type="text" name="40" placeholder="text message"/>
-  <input type="text" name="password" placeholder="the magic word"/>
-  <input type="submit" value="Create New Attak!"/>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input class="form-control required" name="name" placeholder="Attak Name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Variant</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="variant_id" placeholder="Variant Id">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Count</label>
+    <div class="col-sm-10">
+      <input class="form-control" name="count" placeholder="Number of messages sent">
+    </div>
+  </div>
+  <div class="col-sm-offset-2 col-sm-10">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="ordered" value=""> Ordered
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">URLs</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" name="urls" rows="4" placeholder="image url"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Texts</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" name="texts" rows="4" placeholder="text message"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label"></label>
+    <div class="col-sm-10">
+      <input class="form-control" name="password" placeholder="😳">
+    </div>
+  </div>
+  <button class="btn btn-default" type="submit">Create New Attak!</button>
 </form>
