@@ -8,7 +8,11 @@ module Sinatra
     end
 
     def authenticate!(params)
-      puts request
+      puts request.body
+      puts request.host
+      puts request.form_data?
+      puts request.secure?
+      puts request.env
       session[:csrf] ||= SecureRandom.hex(32)
       response.set_cookie 'ta_auth_token', {
         value: session[:csrf],
