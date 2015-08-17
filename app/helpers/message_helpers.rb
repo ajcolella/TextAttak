@@ -15,17 +15,21 @@ module Sinatra
       media_urls = get_media_urls(attak)
       message_texts = get_message_texts(attak)
       
-      initial_text = "#{sender_name} has sent you a TextAttak!!! (To never receive another text from us visit http://textattak.com/optout)"
+      initial_text = "#{sender_name.upcase} has sent you a TextAttak!!!"
+      opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
       final_text = "Get #{sender_name} back!!! More attaks at http://textattak.com"
 
       recipient_numbers.each do |recipient_number|
-        # Send warning and unsubscribe link
+        # Send warning
         send_message(recipient_number, initial_text, "", from_number)
+        # Send unsubscribe link
+        send_message(recipient_number, opt_out_text, "", from_number)
 
         # Send attak
         message_success = []
         attak.count.times.each do |i|
-          message_success << send_message(recipient_number, message_texts[i], media_urls[i], from_number)
+          message_success << send_message(recipient_number, message_texts[i].message, 
+                media_urls[i].image_url, from_number)
         end
 
         # Send link
