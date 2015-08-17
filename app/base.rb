@@ -36,7 +36,8 @@ class TextAttak < Sinatra::Base
     )
   end
 
-  options 'http*://*textattak.com', 'https://checkout.shopify.com' do
+  # options ['http*://*textattak.com', 'https://checkout.shopify.com'] do
+  options '*' do
     headers 'Access-Control-Allow-Headers' => ALLOW_HEADERS,
             'Access-Control-Allow-Methods' => ALLOW_METHODS,
             'Access-Control-Max-Age'       => ALLOW_MAX_AGE
