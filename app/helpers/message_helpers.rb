@@ -15,9 +15,9 @@ module Sinatra
       media_urls = get_media_urls(attak)
       message_texts = get_message_texts(attak)
       
-      initial_text = "#{sender_name.upcase} has sent you a TextAttak!!!"
+      initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
-      final_text = "Get #{sender_name} back!!! More attaks at http://textattak.com"
+      final_text = "\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com"
 
       recipient_numbers.each do |recipient_number|
         # Send warning
@@ -27,13 +27,14 @@ module Sinatra
 
         # Send attak
         message_success = []
+        puts attak.count, 'count'
         attak.count.times.each do |i|
-          message_success << send_message(recipient_number, message_texts[i].message, 
-                media_urls[i].image_url, from_number)
+          message = message_texts[i]
+          message += final_text if attak.count == i # Send link on last message
+          puts message, ' m ' 
+          message_success << send_message(recipient_number, message, 
+                media_urls[i], from_number)
         end
-
-        # Send link
-        send_message(recipient_number, final_text, "", from_number)
       end
 
       # Send back a simple text response that the message was sent
@@ -51,13 +52,13 @@ module Sinatra
 
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
-      media_urls.shuffle unless attak.ordered
+      media_urls.map(&:image_url).shuffle unless attak.ordered
       media_urls[0..attak.count]
     end
 
     def get_message_texts(attak)
       message_texts = Text.where(attak_id: attak)
-      message_texts.shuffle unless attak.ordered
+      message_texts.map(&:message).shuffle unless attak.ordered
       message_texts[0..attak.count]
     end
 
