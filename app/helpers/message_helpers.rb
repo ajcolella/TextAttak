@@ -27,22 +27,20 @@ module Sinatra
 
         # Send attak
         message_success = []
-        puts attak.count, 'count'
         attak.count.times.each do |i|
           message = message_texts[i].message
-          message += final_text if attak.count == i # Send link on last message
-          puts message, ' m ' 
+          message += final_text if attak.count == i - 1 # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
         end
       end
 
       # Send back a simple text response that the message was sent
-      # puts "***************** Message sent! SID: #{message.sid} *****************"
+      puts "***************** Message sent! SID: #{variant_id} *****************"
     end
   
     def validate_recipient(phone)
-      user = User.first_or_create(phone: phone)
+      user = User.create(phone: phone)
       if user.opt_out == true
         raise 'TODO User has opted out' 
         user = nil
@@ -52,13 +50,13 @@ module Sinatra
 
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
-      media_urls.shuffle unless attak.ordered
+      media_urls.shuffle! unless attak.ordered
       media_urls[0..attak.count]
     end
 
     def get_message_texts(attak)
       message_texts = Text.where(attak_id: attak)
-      message_texts.shuffle unless attak.ordered
+      message_texts.shuffle! unless attak.ordered
       message_texts[0..attak.count]
     end
 

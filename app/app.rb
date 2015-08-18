@@ -56,7 +56,6 @@ class TextAttakApi < TextAttak
   end
 
   post '/attak' do
-    params[:id] = '860634755'
     raise 'TODO missing params fail' if params[:id].nil?
     begin
       order = ShopifyAPI::Order.first(id: params[:id])
@@ -70,7 +69,9 @@ class TextAttakApi < TextAttak
     
     # Loop through line items for variant ids
     line_items.each do |item|
-      unless item.fulfillment_status == 'fulfilled'
+      if item.fulfillment_status == 'fulfilled'
+        raise 'Order already fulfilled' # TODO
+      else
 
         recipient_numbers = []
         item.quantity.times do |i|
@@ -91,17 +92,4 @@ class TextAttakApi < TextAttak
 
     puts "***************** Attak sent! #{order.name} - #{order.id} *****************"
   end
-
-  post '/arnold' do
-    byebug
-    url = 'https://cdn.shopify.com/s/files/1/0925/4656/products/schwarzeneggerTR.jpg?v=1437251583'
-    send_message(params[:phone], 'test', url, ENV['TWILIO_NUMBER'])
-  end
-  # post '/validate' do
-  #   # TODO validate phone numbers before checkout screen and add them to the order
-  #   from_user = valid_user(order.user_id) #TODO valid phone number check
-  #   order.notes.wahtever.whatever.each do |to_number|
-  #     validate_recipient(to_number)
-  # end
-
 end
