@@ -38,7 +38,7 @@ module Sinatra
       end
 
       # Send back a simple text response that the message was sent
-      puts "***************** Message sent! SID: #{message.sid} *****************"
+      # puts "***************** Message sent! SID: #{message.sid} *****************"
     end
   
     def validate_recipient(phone)
