@@ -17,7 +17,7 @@ module Sinatra
       
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
-      final_text = "\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com"
+      final_text = "\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com\n#{note}"
 
       recipient_numbers.each do |recipient_number|
         # Send warning
@@ -29,7 +29,7 @@ module Sinatra
         message_success = []
         attak.count.times.each do |i|
           message = message_texts[i].message
-          message += final_text if attak.count == i - 1 # Send link on last message
+          message += final_text if attak.count == i + 1 # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
         end
