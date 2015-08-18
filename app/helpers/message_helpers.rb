@@ -29,11 +29,11 @@ module Sinatra
         message_success = []
         puts attak.count, 'count'
         attak.count.times.each do |i|
-          message = message_texts[i]
+          message = message_texts[i].message
           message += final_text if attak.count == i # Send link on last message
           puts message, ' m ' 
           message_success << send_message(recipient_number, message, 
-                media_urls[i], from_number)
+                media_urls[i].image_url, from_number)
         end
       end
 
@@ -53,21 +53,21 @@ module Sinatra
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
       media_urls.shuffle unless attak.ordered
-      media_urls.map(&:image_url)[0..attak.count]
+      media_urls[0..attak.count]
     end
 
     def get_message_texts(attak)
       message_texts = Text.where(attak_id: attak)
       message_texts.shuffle unless attak.ordered
-      message_texts.map(&:message)[0..attak.count]
+      message_texts[0..attak.count]
     end
 
     def send_message(to, text, media_url, from)
       message_params = {}
       message_params[:to] = to
       message_params[:from] = from
-      message_params[:body] = text #unless text.empty?
-      message_params[:media_url] = media_url #unless media_url.empty?
+      message_params[:body] = text unless text.empty?
+      message_params[:media_url] = media_url unless media_url.empty?
 
       sent = 
         begin
