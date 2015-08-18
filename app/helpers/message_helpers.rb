@@ -66,8 +66,8 @@ module Sinatra
       message_params = {}
       message_params[:to] = to
       message_params[:from] = from
-      message_params[:body] = text unless text.empty?
-      message_params[:media_url] = media_url unless media_url.empty?
+      message_params[:body] = text #unless text.empty?
+      message_params[:media_url] = media_url #unless media_url.empty?
 
       sent = 
         begin
