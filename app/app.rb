@@ -72,8 +72,8 @@ class TextAttakApi < TextAttak
       if item.fulfillment_status == 'fulfilled'
         raise 'Order already fulfilled' # TODO
       else
-
         recipient_numbers = []
+        note = ""
         item.quantity.times do |i|
           i += 1
           # Loop through number of items for "variant_id-item_number" ex: '4957917571-3'
@@ -83,7 +83,7 @@ class TextAttakApi < TextAttak
           recipient_numbers << number unless number.nil?
         end
         sender_name = msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value
-        note = msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0].value || ""
+        note ||= msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0].value
 
         message_success = send_attak(recipient_numbers, item.variant_id, sender_name, note) # TODO check successes
         fulfill_order(order, item)
