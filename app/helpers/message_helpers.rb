@@ -52,14 +52,14 @@ module Sinatra
 
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
-      media_urls.map(&:image_url).shuffle unless attak.ordered
-      media_urls[0..attak.count]
+      media_urls.shuffle unless attak.ordered
+      media_urls.map(&:image_url)[0..attak.count]
     end
 
     def get_message_texts(attak)
       message_texts = Text.where(attak_id: attak)
-      message_texts.map(&:message).shuffle unless attak.ordered
-      message_texts[0..attak.count]
+      message_texts.shuffle unless attak.ordered
+      message_texts.map(&:message)[0..attak.count]
     end
 
     def send_message(to, text, media_url, from)
