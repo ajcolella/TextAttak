@@ -8,9 +8,7 @@ module Sinatra
     end
 
     def authenticate!(params)
-      puts '******'
       puts request.env['HTTP_ORIGIN']
-      puts '(((((('
       session[:csrf] ||= SecureRandom.hex(32)
       response.set_cookie 'ta_auth_token', {
         value: session[:csrf],
@@ -26,7 +24,6 @@ module Sinatra
           halt 403, 'CSRF failed'
         end
       end
-      # halt 403 unless params[:key] =~ ENV['TA_AUTHENITCATION_KEY'] # TODO actually secure this and create unauthorized error
     end
 
   end

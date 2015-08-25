@@ -50,7 +50,9 @@ module Sinatra
 
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
+      puts media_urls.map(&:id), '1'
       media_urls = media_urls.shuffle! unless attak.ordered
+      puts media_urls.map(&:id), '2'
       media_urls[0..attak.count]
     end
 
