@@ -40,9 +40,9 @@ class TextAttakApi < TextAttak
     if attak = Attak.where(variant_id: params[:variant_id]).first_or_create
       attak.update(name: params[:name], count: params[:count], ordered: ordered, paired: paired)
       img_urls = params[:urls].delete("\r").split("\n")
-      img_urls.each { |url| Image.create(image_url: url, attak_id: attak.id) }
+      img_urls.each { |url| Image.where(image_url: url, attak_id: attak.id).first_or_create }
       texts = params[:texts].delete("\r").split("\n")
-      texts.each { |text| Text.create(message: text, attak_id: attak.id) }
+      texts.each { |text| Text.where(message: text, attak_id: attak.id).first_or_create }
     end
 
     'ATTTAK CREATED'
