@@ -33,10 +33,11 @@ class TextAttakApi < TextAttak
     raise 'You must name the Attak' if params[:name].empty?
     raise 'You specify how many messages in the attak' if params[:count].empty?
     raise 'This attak needs a variant_id from schtopify' if params[:variant_id].empty?
+    # raise 'Attak does not exist' if !params[:exist]
     # TODO validate image_url mime types
     ordered = params[:ordered] || 0
     paired = params[:paired] || 0 # TODO not implemented yet
-    if attak = Attak.first_or_create(variant_id: params[:variant_id])
+    if attak = Attak.where(variant_id: params[:variant_id]).first_or_create
       attak.update(name: params[:name], count: params[:count], ordered: ordered, paired: paired)
       img_urls = params[:urls].delete("\r").split("\n")
       img_urls.each { |url| Image.create(image_url: url, attak_id: attak.id) }

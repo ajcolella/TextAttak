@@ -50,13 +50,13 @@ module Sinatra
 
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
-      media_urls.shuffle! unless attak.ordered
+      media_urls = media_urls.shuffle! unless attak.ordered
       media_urls[0..attak.count]
     end
 
     def get_message_texts(attak)
       message_texts = Text.where(attak_id: attak)
-      message_texts.shuffle! unless attak.ordered
+      message_texts = message_texts.shuffle! unless attak.ordered
       message_texts[0..attak.count]
     end
 
