@@ -17,7 +17,7 @@ module Sinatra
       
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
-      final_text = "\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com\n#{note}"
+      final_text = "\n\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com\n#{note}"
 
       recipient_numbers.each do |recipient_number|
         # Send warning
@@ -51,7 +51,7 @@ module Sinatra
     def get_media_urls(attak)
       media_urls = Image.where(attak_id: attak) # TODO limit query
       puts media_urls.map(&:id), '1'
-      media_urls = media_urls.shuffle! unless attak.ordered
+      media_urls = media_urls.shuffle! unless attak.ordered == 1
       puts media_urls.map(&:id), '2'
       media_urls[0..attak.count]
     end

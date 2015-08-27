@@ -26,6 +26,11 @@ class TextAttakApi < TextAttak
 
   get '/shopify' do
     byebug if ENV['RACK_ENV'] == 'development'
+    begin
+      ShopifyAPI::Product.all.map(&:variants).flatten.map(&:attributes).each { |var| puts var['sku'], var['id'] }
+    rescue
+      'OOPs'
+    end
   end
 
   post '/new_attak' do
@@ -50,7 +55,7 @@ class TextAttakApi < TextAttak
 
   post '/unsubscribe' do
     raise 'Number does not exist' if phone = params[:phone].nil?
-    raise 'User does not exist' if user = User.first_or_create(phone: phone)
+    raise 'User does not exist' if user = User.where(phone: phone).first_or_create
     user.update(opt_out: :true)
     puts "#{phone} has opted out"
     "Sorry to see you go! #{phone} has opted out."
