@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra/base'
-require 'sinatra/activerecord'
+# require 'sinatra/activerecord'
 require 'twilio-ruby'
 require 'shopify_api'
 require 'byebug'
