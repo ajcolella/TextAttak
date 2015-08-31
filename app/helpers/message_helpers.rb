@@ -40,12 +40,13 @@ module Sinatra
     end
   
     def validate_recipient(phone)
-      user = User.create(phone: phone)
+      # TODO Shopify id field not in use
+      user = User.where(phone: phone).first_or_create
       if user.opt_out == true
         raise 'TODO User has opted out' 
         user = nil
       end
-      user.phone
+      user
     end
 
     def get_media_urls(attak)

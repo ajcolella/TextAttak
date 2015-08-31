@@ -55,7 +55,7 @@ class TextAttakApi < TextAttak
 
   post '/unsubscribe' do
     raise 'Number does not exist' if phone = params[:phone].nil?
-    raise 'User does not exist' if user = User.where(phone: phone).first_or_create
+    raise 'User does not exist' if user = validate_recipient(phone)
     user.update(opt_out: :true)
     puts "#{phone} has opted out"
     "Sorry to see you go! #{phone} has opted out."
@@ -85,7 +85,7 @@ class TextAttakApi < TextAttak
           # Loop through number of items for "variant_id-item_number" ex: '4957917571-3'
           recipient_number = msg_attributes.select { |note| note.name == "#{item.variant_id}-#{i}" }[0].value
           # Ensure recipient has not opted out
-          number = validate_recipient(recipient_number)
+          number = validate_recipient(recipient_number).phone
           recipient_numbers << number unless number.nil?
         end
         sender_name = msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value
