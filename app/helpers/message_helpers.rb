@@ -29,7 +29,8 @@ module Sinatra
 
         # Send attak
         message_success = []
-        arr = [0..attak.count].shuffle!
+        arr = (0..attak.count).to_a
+        arr.shuffle! unless attak.ordered
         arr.each do |i|
           puts '&&&&&&&&', i, '&&&&&&&&'
           puts message_texts[i]
