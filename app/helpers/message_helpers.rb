@@ -37,8 +37,7 @@ module Sinatra
 
         # Send attak
         message_success = []
-        arr = (0..attak.count).to_a
-        arr.each do |i|
+        (0..attak.count - 1).to_a.each do |i|
           puts '&&&&&&&&', i, '&&&&&&&&'
           message = message_texts[i].message
           puts message_texts[i].id, ' - ', media_urls[i].id
