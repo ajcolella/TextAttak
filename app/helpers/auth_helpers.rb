@@ -8,7 +8,6 @@ module Sinatra
     end
 
     def authenticate!(params)
-      puts request.env['HTTP_ORIGIN']
       session[:csrf] ||= SecureRandom.hex(32)
       response.set_cookie 'ta_auth_token', {
         value: session[:csrf],
@@ -16,11 +15,8 @@ module Sinatra
         path: '/',
         httponly: true
       }
-      puts request.safe?
       unless request.safe?
         unless session[:csrf] == params['_csrf'] && session[:csrf] == request.cookies['ta_auth_token']
-          puts params['_csrf']
-          puts request.cookies['ta_auth_token']
           halt 403, 'CSRF failed'
         end
       end
