@@ -41,12 +41,18 @@ module Sinatra
   
     def validate_recipient(phone)
       # TODO Shopify id field not in use
+      phone = validate_number(phone)
       user = User.where(phone: phone).first_or_create
       if user.opt_out == true
         raise 'User has opted out' 
         user = nil
       end
       user
+    end
+
+    def validate_number(phone)
+      raise 'Invalid Number' if phone.length != 10 || phone != phone.tr('^0-9','')
+      phone[0..9].tr('^0-9','')
     end
 
     def get_media_urls(attak)
