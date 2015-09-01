@@ -44,12 +44,12 @@ module Sinatra
       puts "***************** Message sent! SID: #{variant_id} *****************"
     end
   
-    def validate_recipient(phone, order, line_item)
+    def validate_recipient(phone, order = nil, line_item = nil)
       # TODO Shopify id field not in use
       phone = validate_number(phone)
       user = User.where(phone: phone).first_or_create
       if user.opt_out == true
-        fulfill_order(order, line_item)
+        fulfill_order(order, line_item) unless order.nil? || line_item.nil?
         raise 'User has opted out' 
         user = nil
       end
