@@ -12,8 +12,8 @@ module Sinatra
     def send_attak(recipient_numbers, variant_id, sender_name, note)
       raise 'No such Attak' if (attak = Attak.where(variant_id: variant_id)[0]).nil?
       from_number = ENV['TWILIO_NUMBER']
-      media_urls = get_media_urls(attak)
-      message_texts = get_message_texts(attak)
+      media_urls = Image.where(attak_id: attak).limit(attak.count)
+      message_texts = Text.where(attak_id: attak).limit(attak.count)
       
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
@@ -27,9 +27,10 @@ module Sinatra
 
         # Send attak
         message_success = []
-        attak.count.times.each do |i|
+        arr = [0..attak.count].shuffle!
+        arr.each do |i|
           message = message_texts[i].message
-          message += final_text if attak.count == i + 1 # Send link on last message
+          message += final_text if attak.last == i + 1 # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
         end
@@ -53,20 +54,6 @@ module Sinatra
     def validate_number(phone)
       raise 'Invalid Number' if phone.length != 10 || phone != phone.tr('^0-9','')
       phone[0..9].tr('^0-9','')
-    end
-
-    def get_media_urls(attak)
-      media_urls = Image.where(attak_id: attak) # TODO limit query
-      puts attak.ordered
-      media_urls = media_urls.shuffle! unless attak.ordered
-      puts media_urls.map(&:id), '2 '
-      media_urls[0..attak.count]
-    end
-
-    def get_message_texts(attak)
-      message_texts = Text.where(attak_id: attak)
-      message_texts = message_texts.shuffle! unless attak.ordered
-      message_texts[0..attak.count]
     end
 
     def send_message(to, text, media_url, from)
