@@ -54,9 +54,8 @@ class TextAttakApi < TextAttak
   end
 
   post '/unsubscribe' do
-    raise 'Number does not exist' if (phone = params[:phone]).nil?
-    raise 'Invalid Number' if phone.length != 10 || phone != phone.tr('^0-9','')
-    phone = phone[0..9].tr('^0-9','')
+    raise 'Number does not exist' if params[:phone].nil?
+    phone = validate_number(params[:phone])
     user = validate_recipient(phone)
     user.update(opt_out: true)
     puts "#{phone} has opted out"
