@@ -17,8 +17,10 @@ module Sinatra
       puts media_urls.map(&:id)
       puts message_texts.map(&:id)
       if !attak.ordered
-        media_urls.shuffle!
-        message_texts.to_a.shuffle!
+        puts 'shuffle'
+        puts media_urls.shuffle!
+        media_urls = media_urls.shuffle.take(attak.count)
+        message_texts = message_texts.to_a.shuffle.take(attak.count)
       end
       puts '****'
       puts media_urls.map(&:id)
@@ -40,7 +42,7 @@ module Sinatra
         arr.each do |i|
           puts '&&&&&&&&', i, '&&&&&&&&'
           message = message_texts[i].message
-
+          puts message_texts[i].id, ' - ', media_urls[i].id
           message += final_text if arr.last == i # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
