@@ -1,10 +1,16 @@
-<h1>Unsubscribe from TextAttak</h1>
-<h2>Pardon me for being rude. It was not me -it was my food!</h2>
-<h3>(But seriously, my apologies for ruining any intimate moments, classical music
-  concerts, and general moods.)</h3>
-<form action="/unsubscribe" method="POST">
-  <h4>Enter your phone number (numbers only!) to never receive texts from us again.</h4>
-  <input type="number" maxlength="10" name="phone" placeholder="Phone Number"/>
-  <input type="text" name="message" placeholder="Leave me a message"/>
-  <input type="submit" value="Unsubscribe"/>
-</form>
+<div class="unsubscribe">
+  <h1>Unsubscribe from TextAttak</h1>
+  <h2>Pardon me for being rude. It was not me -it was my food!</h2>
+  <h3>(But seriously, my apologies for ruining any intimate moments, classical music
+    concerts, and general moods.)</h3>
+  <form action="/unsubscribe" method="POST">
+    <h4>Enter your phone number (numbers only!) to never receive texts from us again.</h4>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Phone Number</label>
+      <div class="col-sm-4">
+        <input class="form-control required" type="number" maxlength="number" name="phone" placeholder="Phone Number">
+      </div>
+    </div>
+    <button class="btn btn-default" type="submit">Unsubscribe</button>
+  </form>
+</div>

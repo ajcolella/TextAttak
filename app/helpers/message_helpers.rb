@@ -43,7 +43,7 @@ module Sinatra
       # TODO Shopify id field not in use
       user = User.where(phone: phone).first_or_create
       if user.opt_out == true
-        raise 'TODO User has opted out' 
+        raise 'User has opted out' 
         user = nil
       end
       user
