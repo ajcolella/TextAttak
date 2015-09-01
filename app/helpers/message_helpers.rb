@@ -52,8 +52,8 @@ module Sinatra
     end
 
     def validate_number(phone)
-      raise 'Invalid Number' if phone.length != 10 || phone != phone.tr('^0-9','')
-      phone[0..9].tr('^0-9','')
+      raise 'Invalid Number' if phone.length != 10
+      phone.tr('^0-9','')
     end
 
     def send_message(to, text, media_url, from)
