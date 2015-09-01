@@ -16,7 +16,7 @@ module Sinatra
       message_texts = Text.where(attak_id: attak)
       puts media_urls.map(&:id)
       puts message_texts.map(&:id)
-      if !attak.ordered
+      if attak.ordered != 1
         puts 'shuffle'
         puts media_urls.shuffle!
         media_urls = media_urls.shuffle.take(attak.count)
