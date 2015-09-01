@@ -12,11 +12,18 @@ module Sinatra
     def send_attak(recipient_numbers, variant_id, sender_name, note)
       raise 'No such Attak' if (attak = Attak.where(variant_id: variant_id)[0]).nil?
       from_number = ENV['TWILIO_NUMBER']
-      media_urls = Image.where(attak_id: attak).limit(attak.count)
-      puts media_urls
-      message_texts = Text.where(attak_id: attak).limit(attak.count)
-      puts message_texts
-      
+      media_urls = Image.where(attak_id: attak)
+      message_texts = Text.where(attak_id: attak)
+      puts media_urls.map(&:id)
+      puts message_texts.map(&:id)
+      if !attak.ordered
+        media_urls.shuffle!
+        message_texts.to_a.shuffle!
+      end
+      puts '****'
+      puts media_urls.map(&:id)
+      puts message_texts.map(&:id)
+
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
       final_text = "\n\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com\n#{note}"
@@ -30,11 +37,10 @@ module Sinatra
         # Send attak
         message_success = []
         arr = (0..attak.count).to_a
-        arr.shuffle! unless attak.ordered
         arr.each do |i|
           puts '&&&&&&&&', i, '&&&&&&&&'
-          puts message_texts[i]
           message = message_texts[i].message
+
           message += final_text if arr.last == i # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
