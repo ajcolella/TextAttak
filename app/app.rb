@@ -57,7 +57,7 @@ class TextAttakApi < TextAttak
     raise 'Number does not exist' if params[:phone].nil?
     user = validate_recipient(params[:phone])
     user.update(opt_out: true)
-    puts "#{phone} has opted out"
+    puts "#{user.phone} has opted out"
     "Sorry to see you go! #{phone} has opted out."
   end
 
