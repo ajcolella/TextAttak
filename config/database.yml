@@ -1,3 +1,9 @@
+production:
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  database: ENV['DATABASE_URL']
+
 development:
   adapter:  postgresql
   host:     localhost
