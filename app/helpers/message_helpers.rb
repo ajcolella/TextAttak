@@ -42,6 +42,7 @@ module Sinatra
           puts '&&&&&&&&', i, '&&&&&&&&'
           message = message_texts[i].message
           puts message_texts[i].id, ' - ', media_urls[i].id
+          puts message_texts[i].message, ' - ', media_urls[i].image_url
           message += final_text if arr.last == i # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
