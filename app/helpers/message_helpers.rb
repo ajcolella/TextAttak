@@ -14,16 +14,10 @@ module Sinatra
       from_number = ENV['TWILIO_NUMBER']
       media_urls = Image.where(attak_id: attak)
       message_texts = Text.where(attak_id: attak)
-      puts media_urls.map(&:id)
-      puts message_texts.map(&:id)
       if attak.ordered != 1
-        puts 'shuffle'
         media_urls = media_urls.shuffle.take(attak.count)
         message_texts = message_texts.shuffle.take(attak.count)
       end
-      puts '****'
-      puts media_urls.map(&:id)
-      puts message_texts.map(&:id)
 
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
@@ -69,7 +63,7 @@ module Sinatra
       # TODO actually validate number
       phone = phone.tr('^0-9','')
       raise 'Invalid Number' if phone.length != 10
-      phone
+      "+1#{phone}"
     end
 
     def send_message(to, text, media_url, from)
