@@ -2,16 +2,10 @@ require 'sinatra/base'
 
 module Sinatra
   module MessageHelpers
-    # def validate_user(order)
-    #   user = User.first_or_create(shopify_id: order.user_id)
-    #   raise 'TODO Invalid User' if user.nil?
-    #   raise 'TODO check relationship between to and send users' if false
-    #   user
-    # end
 
     def send_attak(recipient_numbers, variant_id, sender_name, note)
       raise 'No such Attak' if (attak = Attak.where(variant_id: variant_id)[0]).nil?
-      from_number = ENV['TWILIO_NUMBER']
+      from_number = ENV['TWILIO_NUMBER'].split(',').sample
       media_urls = Image.where(attak_id: attak)
       message_texts = Text.where(attak_id: attak)
       if attak.ordered != 1
@@ -33,10 +27,7 @@ module Sinatra
         message_success = []
         arr = (0..attak.count - 1).to_a
         arr.each do |i|
-          puts '&&&&&&&&', i, '&&&&&&&&'
           message = message_texts[i].message
-          puts message_texts[i].id, ' - ', media_urls[i].id
-          puts message_texts[i].message, ' - ', media_urls[i].image_url
           message += final_text if arr.last == i # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
