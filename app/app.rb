@@ -76,6 +76,7 @@ class TextAttakApi < TextAttak
     rescue
       puts 'TODO fail'
     end
+    puts order
     attributes = order.attributes
     raise 'TODO order already fulfilled' if (fulfilled = attributes['fulfillment_status']) == 'fulfilled'
     msg_attributes = attributes['note_attributes']
