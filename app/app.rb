@@ -3,10 +3,10 @@ require_relative 'base'
 class TextAttakApi < TextAttak
   helpers Sinatra::AuthHelpers
   helpers Sinatra::MessageHelpers
+  helpers Sinatra::TwitterHelpers
 
   before do
-    # Accept any cross-site requests from the client.
-    response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN'] #|| request.env['SERVER_NAME'] # TODO <-- this is for localhost
+    response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN'] # Accept any cross-site requests from the client.
     return if request.options? # Do not require authentication for preflight requests
     authenticate!(params) unless request.env['HTTP_ORIGIN'] == 'https://checkout.shopify.com' #TODO actual request auth with shopify
     init_api_keys
@@ -31,6 +31,10 @@ class TextAttakApi < TextAttak
     rescue
       'OOPs'
     end
+  end
+
+  get '/twitter' do
+    byebug if ENV['RACK_ENV'] == 'development'
   end
 
   post '/new_attak' do
@@ -59,6 +63,10 @@ class TextAttakApi < TextAttak
     user.update(opt_out: true)
     puts "#{user.phone} has opted out"
     "Sorry to see you go! #{phone} has opted out."
+  end
+
+  post '/final_attak' do
+    puts params
   end
 
   post '/attak' do

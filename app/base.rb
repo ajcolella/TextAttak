@@ -7,6 +7,7 @@ require 'byebug'
 require 'rack/ssl'
 require 'tilt/erubis'
 require 'phony'
+require 'twitter'
 
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/views/*.rb'].each {|file| require file }
