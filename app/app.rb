@@ -76,7 +76,7 @@ class TextAttakApi < TextAttak
     rescue
       puts 'TODO fail'
     end
-    puts order
+    puts order.id
     attributes = order.attributes
     raise 'TODO order already fulfilled' if (fulfilled = attributes['fulfillment_status']) == 'fulfilled'
     msg_attributes = attributes['note_attributes']
@@ -89,6 +89,7 @@ class TextAttakApi < TextAttak
       else
         recipient_numbers = []
         note = ""
+        sender_name = ""
         item.quantity.times do |i|
           i += 1
           # Loop through number of items for "variant_id-item_number" ex: '4957917571-3'
@@ -97,7 +98,7 @@ class TextAttakApi < TextAttak
           number = validate_recipient(recipient_number, order, item).phone
           recipient_numbers << number unless number.nil?
         end
-        sender_name = msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value
+        sender_name ||= msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value
         note ||= msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0].value
 
         message_success = send_attak(recipient_numbers, item.variant_id, sender_name, note) # TODO check successes
