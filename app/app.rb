@@ -94,9 +94,10 @@ class TextAttakApi < TextAttak
           i += 1
           # Loop through number of items for "variant_id-item_number" ex: '4957917571-3'
           if !(recipient_number = msg_attributes.select { |note| note.name == "#{item.variant_id}-#{i}" }[0]).nil?
-          # Ensure recipient has not opted out
-          number = validate_recipient(recipient_number.value, order, item).phone
-          recipient_numbers << number unless number.nil?
+            # Ensure recipient has not opted out
+            number = validate_recipient(recipient_number.value, order, item).phone
+            recipient_numbers << number unless number.nil?
+          end
         end
         sender_name ||= msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value
         note ||= msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0].value
