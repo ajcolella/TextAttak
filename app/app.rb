@@ -96,7 +96,12 @@ class TextAttakApi < TextAttak
             recipient_numbers << number unless number.nil?
           end
         end
-        sender_name = msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value || "!"
+        sender_name = 
+          if !(name = msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0]).nil?
+            name.value 
+          else
+            "!"
+          end
         note = 
           if !(msg = msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0]).nil?
             msg.value
