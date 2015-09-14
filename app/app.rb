@@ -97,7 +97,12 @@ class TextAttakApi < TextAttak
           end
         end
         sender_name = msg_attributes.select { |note| note.name == "#{item.variant_id}-name" }[0].value || "!"
-        note = msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0].value || ""
+        note = 
+          if !(msg = msg_attributes.select { |note| note.name == "#{item.variant_id}-note" }[0]).nil?
+            msg.value
+          else
+            ""
+          end
 
         message_success = send_attak(recipient_numbers, item.variant_id, sender_name, note) # TODO check successes
         fulfill_order(order, item)
