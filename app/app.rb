@@ -76,10 +76,9 @@ class TextAttakApi < TextAttak
     rescue
       puts 'TODO fail'
     end
-    attributes = order.attributes
-    raise 'TODO order already fulfilled' if (fulfilled = attributes['fulfillment_status']) == 'fulfilled'
-    msg_attributes = attributes['note_attributes']
-    line_items = attributes['line_items']
+    raise 'TODO Order has been fulfilled' if order.nil?
+    msg_attributes = order.attributes['note_attributes']
+    line_items = order.attributes['line_items']
     
     # Loop through line items for variant ids
     line_items.each do |item|
