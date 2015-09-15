@@ -14,7 +14,7 @@ task :tweet => :production do
 end
 
 desc "Send Final Text"
-task :final_text => :production do
+task :final_text do
   init_api_keys
   # ShopifyAPI::Order.where()
   puts 'Scheduled Run'

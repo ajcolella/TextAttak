@@ -62,7 +62,7 @@ class TextAttakApi < TextAttak
     user = validate_recipient(params[:phone])
     user.update(opt_out: true)
     puts "#{user.phone} has opted out"
-    "Sorry to see you go! #{phone} has opted out."
+    "Sorry to see you go! #{user.phone} has opted out."
   end
 
   post '/final_attak' do
@@ -74,7 +74,7 @@ class TextAttakApi < TextAttak
     begin
       order = ShopifyAPI::Order.first(id: params[:id])
     rescue
-      puts 'TODO fail'
+      puts 'TODO Shopify API fail'
     end
     raise 'TODO Order has been fulfilled' if order.nil?
     msg_attributes = order.attributes['note_attributes']
