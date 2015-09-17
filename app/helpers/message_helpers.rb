@@ -27,7 +27,7 @@ module Sinatra
         message_success = []
         arr = (0..attak.count - 1).to_a
         arr.each do |i|
-          message = message_texts[i].message
+          message = message_texts[i].message || ""
           message += final_text if arr.last == i # Send link on last message
           message_success << send_message(recipient_number, message, 
                 media_urls[i].image_url, from_number)
