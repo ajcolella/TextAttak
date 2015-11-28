@@ -17,12 +17,12 @@ task :tweet do
     attak = Attak.all.sample
     image = Image.where(attak_id: attak.id).map(&:image_url).sample
     text = Text.where(attak_id: attak.id).map(&:message).sample + ' #' + attak.name.delete(' ') + tag
-    byebug
     #TODO hastags from shopify product tags
     begin
       uri = URI.parse(image)
       media = uri.open
       media.instance_eval("def original_filename; '#{File.basename(uri.path)}'; end")
+      puts 'Tweeting: #{text}'
       @twitter.update_with_media(text, media)
     rescue
       puts 'Invalid credentials'
