@@ -12,7 +12,7 @@ require 'twitter'
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/views/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each {|file| require file }
-Dir[File.dirname(__FILE__) + './lib/tasks/*.rake'].each {|file| require file }
+Dir[File.dirname(__FILE__) + '/lib/tasks/*.rake'].each {|file| require file }
 
 class TextAttak < Sinatra::Base
   ALLOW_HEADERS = 'Accept, Authorization'
@@ -27,7 +27,8 @@ class TextAttak < Sinatra::Base
     Sinatra::Application.reset!
     use Rack::Reloader
 
-    db = URI.parse(ENV['DATABASE_URL'])
+    db_url = (ENV['RACK_ENV'] == 'production') ? ENV['DATABASE_URL'] : ENV['TA_DATABASE_URL']
+    db = URI.parse(db_url)
     ActiveRecord::Base.establish_connection(
      :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
      :host     => db.host,
