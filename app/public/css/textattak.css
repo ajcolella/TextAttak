@@ -1,15 +1,279 @@
-body {
-  margin: 10px;
+/*------------------------------------*\
+  COMMONS CLASSES
+\*------------------------------------*/
+
+h1, h2, h3, h4, h5, h6
+{
+    font-family: 'Roboto Slab', serif;
 }
 
-input {
-  margin-bottom: 10px;
+h1, h2, h3, h4, h5, h6
+{
+    margin-bottom: 0.4em;
 }
 
-textarea {
-  margin-bottom: 10px;
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p
+{
+    margin-bottom: 1.1em;
 }
 
-.unsubscribe form {
-  display: inline-block;
+.features,
+.blog,
+.gallery,
+.clients,
+.prefooter .container-fluid
+{
+    padding-top: 3.3em;
+    padding-bottom: 4.2em;
+}
+
+span.typcn::before, i.typcn::before
+{
+    font-size: 4em;
+}
+
+span.x2:before, i.x2:before
+{
+    font-size: 5.4em;
+}
+
+span.x3:before, i.x3:before
+{
+    font-size: 6.4em;
+}
+
+span.x4:before, i.x4:before
+{
+    font-size: 7em;
+}
+
+
+
+/*------------------------------------*\
+  HEADER
+\*------------------------------------*/
+
+header .container-fluid
+{
+    background-image: url('/img/american_flag.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 200v;
+    padding-top: 36px;
+}
+
+.h1 {
+  font-size: 85px!important;
+}
+
+.hamburger
+{
+    font-size: 2.3em;
+    color: #000;
+}
+
+.hamburger:hover
+{
+  color: #FFF;
+  cursor: pointer;
+}
+
+
+.logo
+{
+  width: 65%;
+}
+
+.gif
+{
+  width: 65%;
+}
+
+.jumbotron
+{
+    background: none;
+    text-align: center;
+    padding: 0px;
+}
+
+.jumbotron h1,
+.jumbotron h2,
+.jumbotron h3,
+.jumbotron h4,
+.jumbotron h5,
+.jumbotron h6,
+.jumbotron small
+{
+    color: #FFC;
+}
+
+.jumbotron p
+{
+    color: #FFC;
+    margin-bottom: 5%;
+}
+
+/*------------------------------------*\
+  SECTIONS
+\*------------------------------------*/
+
+.number .container-fluid
+{
+    background-image: url('https://unsplash.it/3000/2000?image=685');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.opaline
+{
+    padding-top: 3em;
+    padding-bottom: 3em;
+    background-color: rgba(128, 215, 247, 0.660);
+}
+
+.opaline h1,
+.opaline h2,
+.opaline h3,
+.opaline h4,
+.opaline h5,
+.opaline h6,
+.opaline p
+{
+    color: #FFFFFF;
+}
+
+.opaline .boxes
+{
+    margin-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    border: 1px solid #FFF;
+}
+
+.boxes .odometer.odometer-theme-default
+{
+  font-family: 'Roboto Slab', serif;
+}
+
+.story .container-fluid
+{
+    background-image: url('https://unsplash.it/3000/2000?image=531');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.gallery
+{
+    background-color: #dddddd;
+}
+
+.prefooter .container-fluid
+{
+    background: linear-gradient(
+      rgba(33, 37, 43, 0.6),
+      rgba(33, 37, 43, 0.6)
+    ),
+
+    url(https://unsplash.it/4000/3000?image=528);
+}
+
+.prefooter h1,
+.prefooter h2,
+.prefooter h3,
+.prefooter h4,
+.prefooter h5,
+.prefooter h6,
+.prefooter p
+{
+    color: #FFFFFF;
+}
+
+/*------------------------------------*\
+  FOOTER
+\*------------------------------------*/
+
+footer
+{
+    background-color: rgba(36, 50, 59, 1);
+    padding-top: 2em;
+    padding-bottom: 1.2em;
+}
+
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6,
+footer p
+{
+    color: #FFFFFF;
+}
+
+.social
+{
+    padding-top: 50px;
+}
+
+.body-text {
+  max-width: 375px;
+}
+
+.stripe-form {
+  text-align: left;
+  background: gainsboro;
+  padding: 20px 30px 20px 30px;
+  border-radius: 3px;
+  box-shadow: 3px 3px 5px rgba(25,25,25,.2);
+  max-width: 375px;
+}
+
+.col-form-label {
+  margin-left: -15px;
+}
+
+.stripe-form label {
+  margin-bottom: 0px;
+}
+
+.stripe-form .phone {
+  padding: 0px;
+}
+
+.add-button {
+  padding: 3px 0px 0px 5px;
+}
+
+.add-button button {
+  border-radius: 4px;
+}
+
+.radio-list {
+  padding: 5px 20px 5px 20px;
+  border-width: 4px;
+  border: white;
+  border-style: solid;
+  border-radius: 3px;
+}
+
+.radio-label {
+  padding-left: 70px;
+  font-weight: normal;
+  margin-top: -10px;
+}
+
+.powered_by {
+  text-align: center;
+}
+
+.text-attak {
+  width: 40%;
+}
+
+.payment button.stripe-button-el {
+  color: #000!important;
+  background-color: #204d74!important;
+  border-color: #122b40!important;
 }

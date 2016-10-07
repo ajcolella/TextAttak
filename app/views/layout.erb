@@ -4,21 +4,51 @@
   <meta name='csrf-token' content='<%= session[:csrf] %>'>
   <script src="/js/jquery-2.1.4.min.js" type="text/javascript"></script>
   <script src="/js/csrf.js" type="text/javascript"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
-  <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <link href="/css/textattak.css" rel="stylesheet">
+  <script src="/js/bootstrap-formhelpers-phone.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700,100' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:300,700,900,500' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="css/theme.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/pushy.css">
+  <link rel="stylesheet" href="/css/textattak.css">
+  <link rel="stylesheet" href="/css/masonry.css">
+  <link rel="stylesheet" href="/css/animate.css">
+  <link rel="stylesheet" href="/css/magnific-popup.css">
 </head>
-<body>
-  <div class="body">
-    <img src="https://cdn.shopify.com/s/files/1/0925/4656/t/2/assets/logo.png?9538228193648145613" alt="textattak">
-    <%= yield %>
-  </div>
-</body>
+<div class="site-overlay"></div>
+
+<header id="home">
+    <div class="container-fluid">
+        <div class="container jumbotron">
+          <div class="row">
+            <div class="col-md-12">
+              <img src="/img/trump_dump_logo.png" alt="" class="img-fluid logo">
+              <h3><strong>This is a simple text bomb.<br></strong></h3>
+              <h6>It sends a bunch of insane Trump quotes and pics all at once.</h6>
+              <br>
+            <div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6 col-xs-12">
+              <br>
+              <img src="https://cdn.shopify.com/s/files/1/0925/4656/products/TrumpPhoneGif.gif?v=1447330656" alt="" class="img-fluid gif">
+            </div>
+            <div class="col-lg-5 col-xs-12 body-text">
+              <h3><strong>
+                Use it to annoy your friends, enemies, and frenemies.
+                <br> Remind them that electing this man is unacceptable.
+              </strong></h3>
+              <%= yield %>
+            </div>
+            
+          </div>
+        </div>
+    </div>
+</header>
 
 </html>

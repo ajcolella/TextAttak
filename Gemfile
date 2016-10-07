@@ -17,3 +17,4 @@ gem 'thin'
 gem 'rake'
 gem 'twitter'
 gem 'resque'
+gem "braintree", "~> 2.67.0"

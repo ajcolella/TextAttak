@@ -8,18 +8,18 @@ module Sinatra
     end
 
     def authenticate!(params)
-      session[:csrf] ||= SecureRandom.hex(32)
-      response.set_cookie 'ta_auth_token', {
-        value: session[:csrf],
-        expires: Time.now + (60 * 60 * 24 * 180), # 180 days
-        path: '/',
-        httponly: true
-      }
-      unless request.safe?
-        unless session[:csrf] == params['_csrf'] && session[:csrf] == request.cookies['ta_auth_token']
-          halt 403, 'CSRF failed'
-        end
-      end
+      # session[:csrf] ||= SecureRandom.hex(32)
+      # response.set_cookie 'ta_auth_token', {
+      #   value: session[:csrf],
+      #   expires: Time.now + (60 * 60 * 24 * 180), # 180 days
+      #   path: '/',
+      #   httponly: true
+      # }
+      # unless request.safe?
+      #   unless session[:csrf] == params['_csrf'] && session[:csrf] == request.cookies['ta_auth_token']
+      #     halt 403, 'CSRF failed'
+      #   end
+      # end
     end
 
   end

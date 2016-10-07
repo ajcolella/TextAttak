@@ -1,6 +1,65 @@
-<h1>Send Yourself A Picture</h1>
-<form action="/arnold" method="POST">
-  <input type="text" name="phone" placeholder="enter a phone number"/>
-  <input type="text" name="message" placeholder="optional - include a text message"/>
-  <input type="submit" value="Send me the picture!"/>
-</form>
+<div class="stripe-form col-xs-12" id="stripe-form">
+  <form action="/charge" method="post" class="payment">
+  
+    <div class="form-group row radio-list">
+      <label class="col-xs-12 col-form-label">Choose your weapon:</label>
+      <label class="form-check-label">
+        <div class="col-xs-12">
+          <input type="radio" class="form-check-input" name="optionsRadios" value="1" checked>
+            &nbsp;&nbsp;💣 The Mouth Breather 💣
+        </div>
+        <div class="col-xs-12 radio-label">&nbsp;10 messages $0.99</div>
+      </label>
+      <label class="form-check-label">
+        <div class="col-xs-12">
+          <input type="radio" class="form-check-input" name="optionsRadios" value="2">
+          &nbsp;&nbsp;🇨🇳 The China China China 🇨🇳 
+        </div>
+        <div class="col-xs-12 radio-label">&nbsp;15 messages $1.25</div>
+      </label>
+      <label class="form-check-label">
+        <div class="col-xs-12">
+          <input type="radio" class="form-check-input" name="optionsRadios" value="3">
+          &nbsp;&nbsp;💩 THE TRUMP DUMP 💩
+        </div>
+        <div class="col-xs-12 radio-label">&nbsp;25 messages $1.50</div>
+      </label>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-xs-12 col-form-label">Your Name (required)</label>
+      <input class="form-control" type="text" name="name" maxlength="100" required>
+    </div>
+    <div class="form-group row">
+      <label class="col-xs-12 col-form-label">Recipient Phone #:</label>
+      <div class="col-xs-10 phone">
+        <input type="text" class="form-control bfh-phone" name="phone[]" required="true" data-format="+1 (ddd) ddd-dddd">
+      </div>
+      <div class="col-xs-2 add-button">
+          <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-xs-12 col-form-label">Message To Your Frenemy</label>
+      <textarea class="form-control" type="text" name="message" maxlength="100"></textarea>
+    </div>
+    <div class="form-group row">
+      <label class="col-xs-12 col-form-label" class="amount">
+        <span>Amount: $5.00 USD</span>
+      </label>
+    </div>
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key=<%= settings.publishable_key %>
+            data-description="A month's subscription"
+            data-amount="500"
+            data-locale="auto">
+    </script>
+    <div class="powered_by">
+      <br><img src="/img/powered_by_stripe.png" class="img-fluid">
+      <br>
+      <img src="https://cdn.shopify.com/s/files/1/0925/4656/t/2/assets/logo.png?9538228193648145613" 
+      class="img-fluid text-attak" alt="textattak">
+    </div>
+
+  </form>
+</div>
