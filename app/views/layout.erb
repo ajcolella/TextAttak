@@ -6,7 +6,18 @@
   <script src="/js/csrf.js" type="text/javascript"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="/js/bootstrap-formhelpers-phone.js"></script>
+  <script src="/js/global.js"></script>
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.5/validator.min.js"></script>
+
+  <script src="https://js.braintreegateway.com/js/braintree-2.29.0.min.js"></script>
+  <script>
+    var clientToken = "<%= @client_token %>"
+
+    braintree.setup(clientToken, "dropin", {
+      container: "payment-form"
+    });
+  </script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">

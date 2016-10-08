@@ -13,7 +13,7 @@ class TextAttakApi < TextAttak
   end
 
   get '/' do
-    # @client_token = Braintree::ClientToken.generate
+    @client_token = Braintree::ClientToken.generate
     erb :index
   end
 
@@ -115,27 +115,5 @@ class TextAttakApi < TextAttak
     end
 
     puts "***************** Attak sent! #{order.name} - #{order.id} *****************"
-  end
-
-  post '/charge' do
-    # Amount in cents
-    @amount = 500
-    byebug
-    customer = Stripe::Customer.create(
-      :email => 'customer@example.com',
-      :source  => params[:stripeToken]
-    )
-
-    charge = Stripe::Charge.create(
-      :amount      => @amount,
-      :description => 'Sinatra Charge',
-      :currency    => 'usd',
-      :customer    => customer.id
-    )
-    p 'TESTSRIPE'
-  end
-
-  error Stripe::CardError do
-    env['sinatra.error'].message
   end
 end

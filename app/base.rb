@@ -8,8 +8,7 @@ require 'rack/ssl'
 require 'tilt/erubis'
 require 'phony'
 require 'twitter'
-require 'stripe'
-# require 'braintree'
+require 'braintree'
 
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/views/*.rb'].each {|file| require file }
@@ -17,15 +16,11 @@ Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/lib/tasks/*.rake'].each {|file| require file }
 
 class TextAttak < Sinatra::Base
-  set :publishable_key, ENV['STRIPE_PUBLISHABLE_KEY']
-  set :secret_key, ENV['STRIPE_SECRET_KEY']
 
-  Stripe.api_key = settings.secret_key
-
-  # Braintree::Configuration.environment = :sandbox
-  # Braintree::Configuration.merchant_id = "use_your_merchant_id"
-  # Braintree::Configuration.public_key = "use_your_public_key"
-  # Braintree::Configuration.private_key = "use_your_private_key"
+  Braintree::Configuration.environment = :production
+  Braintree::Configuration.merchant_id = ENV['BRAINTREE_MERCHANT_ID']
+  Braintree::Configuration.public_key = ENV['BRAINTREE_PUBLIC_KEY']
+  Braintree::Configuration.private_key = ENV['BRAINTREE_PRIVATE_KEY']
 
   ALLOW_HEADERS = 'Accept, Authorization'
   ALLOW_METHODS = 'GET, POST'

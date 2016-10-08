@@ -30,15 +30,20 @@
       <label class="col-xs-12 col-form-label">Your Name (required)</label>
       <input class="form-control" type="text" name="name" maxlength="100" required>
     </div>
-    <div class="form-group row">
-      <label class="col-xs-12 col-form-label">Recipient Phone #:</label>
+
+    <div class="form-group row phone-input">
+      <label class="col-xs-12 col-form-label">Recipient Phone #s (Send up to 5!)</label>
       <div class="col-xs-10 phone">
         <input type="text" class="form-control bfh-phone" name="phone[]" required="true" data-format="+1 (ddd) ddd-dddd">
       </div>
       <div class="col-xs-2 add-button">
-          <button type="button" class="btn btn-default addButton"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-default btn-add"><i class="fa fa-plus"></i></button>
       </div>
     </div>
+
+    <div class="form-group phone-group">
+    </div>
+
     <div class="form-group row">
       <label class="col-xs-12 col-form-label">Message To Your Frenemy</label>
       <textarea class="form-control" type="text" name="message" maxlength="100"></textarea>
@@ -48,12 +53,11 @@
         <span>Amount: $5.00 USD</span>
       </label>
     </div>
-    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key=<%= settings.publishable_key %>
-            data-description="A month's subscription"
-            data-amount="500"
-            data-locale="auto">
-    </script>
+    <form id="checkout" method="post" action="/checkout">
+      <div id="payment-form"></div>
+      <input type="submit" value="Pay $10">
+    </form>
+
     <div class="powered_by">
       <br><img src="/img/powered_by_stripe.png" class="img-fluid">
       <br>
