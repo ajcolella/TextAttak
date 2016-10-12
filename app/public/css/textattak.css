@@ -288,6 +288,7 @@ footer p
 
 .powered_by img {
   width: 175px;
+  padding: 8px;
 }
 
 .panel .checkout {
@@ -331,4 +332,11 @@ footer p
 .amount-error {
   color: #ca0443;
   padding-bottom: 10px;
+}
+
+.submit {
+  border-radius: 5px;
+  color: #FFC;
+  background-color: cornflowerblue;
+  border-width: 1px; 
 }
