@@ -80,11 +80,11 @@ class TextAttakApi < TextAttak
     type = 
       case params[:optionsRadios]
       when "1"
-        [0.99, 8]
+        [0.99, 8, "The Mouth Breather"]
       when "2"
-        [1.25, 15]
+        [1.25, 15, "🇨🇳🇨🇳 The China China 🇨🇳🇨🇳"]
       when "3"
-        [1.75, 30]
+        [1.75, 30, "💩 THE TRUMPF DUMP 💩"]
       end
     amount = type[0] * phone_numbers.length
     res = Braintree::Transaction.sale(
@@ -96,8 +96,8 @@ class TextAttakApi < TextAttak
     )
     send_attak(phone_numbers, 6904401923, params[:name], params[:message], type[1]) if res.success?
     puts "***************** Attak sent! #{params[:name]} - #{phone_numbers} *****************"
-    flash[:success] = "Trumpf Dump sent to #{phone_numbers.join(',')}! Check out more text bombs at TextAttak.com"
-    get :index
+    @bomb_name = type[2]
+    erb :checkout
   end
 
   post '/attak' do

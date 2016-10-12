@@ -3,7 +3,7 @@ $(document).ready(function() {
     var clientToken = $('.token').text()
 
     braintree.setup(clientToken, "dropin", {
-      container: "braintree-form",
+      container: "panel",
       form: "checkout",
       paypal: {
         singleUse: true,

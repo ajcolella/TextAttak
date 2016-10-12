@@ -4,7 +4,7 @@
 
 h1, h2, h3, h4, h5, h6
 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6
@@ -217,7 +217,7 @@ footer p
     padding-top: 50px;
 }
 
-.braintree-form {
+.panel {
   text-align: left;
   background: #e4e4e4;
   padding: 20px 30px 20px 30px;
@@ -244,11 +244,11 @@ footer p
   margin-bottom: 5px;
 }
 
-.braintree-form label {
+.panel label {
   margin-bottom: 0px;
 }
 
-.braintree-form .phone {
+.panel .phone {
   padding: 0px;
 }
 
@@ -286,6 +286,15 @@ footer p
   text-align: center;
 }
 
+.powered_by img {
+  width: 175px;
+}
+
+.panel .checkout {
+  color: #555;
+  text-align: center;
+}
+
 .text-attak {
   width: 40%;
 }
@@ -310,7 +319,7 @@ footer p
 
 
 @media (max-width: 450px) {
-  .braintree-form {
+  .panel {
     padding: 20px;
   }
 }
