@@ -94,6 +94,7 @@ class TextAttakApi < TextAttak
         :submit_for_settlement => true
       }
     )
+    variant_id = ENV['TEXTATTAK_VARIANT_ID']
     send_attak(phone_numbers, 6904401923, params[:name], params[:message], type[1]) if res.success?
     puts "***************** Attak sent! #{params[:name]} - #{phone_numbers} *****************"
     @bomb_name = type[2]

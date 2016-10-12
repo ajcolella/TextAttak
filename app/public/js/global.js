@@ -16,7 +16,7 @@ $(document).ready(function() {
         if (obj.type == 'VALIDATION') {
           // Validation errors contain an array of error field objects:
           obj.details.invalidFields;
-
+          console.log(obj);
         } else if (obj.type == 'SERVER') {
           // If the customer's browser cannot connect to Braintree:
           obj.message; // "Connection error"
@@ -24,6 +24,7 @@ $(document).ready(function() {
           // If the credit card failed verification:
           obj.message; // "Credit card is invalid"
           obj.details; // Object with error-specific information
+          console.log(obj);
         }
       },
       onPaymentMethodReceived: function (obj) {
