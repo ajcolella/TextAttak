@@ -9,6 +9,7 @@ require 'tilt/erubis'
 require 'phony'
 require 'twitter'
 require 'braintree'
+require 'sinatra/flash'
 
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/views/*.rb'].each {|file| require file }
@@ -16,6 +17,8 @@ Dir[File.dirname(__FILE__) + '/helpers/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/lib/tasks/*.rake'].each {|file| require file }
 
 class TextAttak < Sinatra::Base
+  register Sinatra::ActiveRecordExtension
+  register Sinatra::Flash
 
   Braintree::Configuration.environment = :production
   Braintree::Configuration.merchant_id = ENV['BRAINTREE_MERCHANT_ID']
@@ -26,7 +29,6 @@ class TextAttak < Sinatra::Base
   ALLOW_METHODS = 'GET, POST'
   ALLOW_MAX_AGE = 20 * 60
 
-  register Sinatra::ActiveRecordExtension
   use Rack::SSL
   enable :sessions
 

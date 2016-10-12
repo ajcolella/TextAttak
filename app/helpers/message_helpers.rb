@@ -3,14 +3,15 @@ require 'sinatra/base'
 module Sinatra
   module MessageHelpers
 
-    def send_attak(recipient_numbers, variant_id, sender_name, note)
+    def send_attak(recipient_numbers, variant_id, sender_name, note, count=0)
       raise 'No such Attak' if (attak = Attak.where(variant_id: variant_id)[0]).nil?
       from_number = ENV['TWILIO_NUMBER'].split(',').sample
       media_urls = Image.where(attak_id: attak)
       message_texts = Text.where(attak_id: attak)
+      count = attak.count if count == 0
       if attak.ordered != 1
-        media_urls = media_urls.shuffle.take(attak.count)
-        message_texts = message_texts.shuffle.take(attak.count)
+        media_urls = media_urls.shuffle.take(count)
+        message_texts = message_texts.shuffle.take(count)
       end
 
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
@@ -25,7 +26,7 @@ module Sinatra
 
         # Send attak
         message_success = []
-        arr = (0..attak.count - 1).to_a
+        arr = (0..count - 1).to_a
         arr.each do |i|
           message = !message_texts[i].nil? ? message_texts[i].message : ""
           message += final_text if arr.last == i # Send link on last message

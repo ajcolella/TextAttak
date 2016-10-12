@@ -17,4 +17,5 @@ gem 'thin'
 gem 'rake'
 gem 'twitter'
 gem 'resque'
-gem "braintree", "~> 2.67.0"
+gem 'braintree', '~> 2.67.0'
+gem 'sinatra-flash'

@@ -4,7 +4,7 @@
 
 h1, h2, h3, h4, h5, h6
 {
-    font-family: 'Roboto Slab', serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6
@@ -217,28 +217,38 @@ footer p
     padding-top: 50px;
 }
 
-.body-text {
-  max-width: 375px;
-}
-
-.stripe-form {
+.braintree-form {
   text-align: left;
-  background: gainsboro;
+  background: #e4e4e4;
   padding: 20px 30px 20px 30px;
   border-radius: 3px;
   box-shadow: 3px 3px 5px rgba(25,25,25,.2);
-  max-width: 375px;
+}
+
+.form-control {
+  display: block;
+  border: solid 1px #DEE2E5;
+  border-bottom: solid 1px #DEE2E5;
+  margin-top: -1px;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0px;
 }
 
 .col-form-label {
-  margin-left: -15px;
+  margin-left: -10px;
 }
 
-.stripe-form label {
+.form-group {
+  margin-bottom: 5px;
+}
+
+.braintree-form label {
   margin-bottom: 0px;
 }
 
-.stripe-form .phone {
+.braintree-form .phone {
   padding: 0px;
 }
 
@@ -252,16 +262,24 @@ footer p
 
 .radio-list {
   padding: 5px 20px 5px 20px;
-  border-width: 4px;
   border: white;
-  border-style: solid;
+  border-style: double;
   border-radius: 3px;
+  text-align: center;
+}
+
+.radio-list .col-form-label {
+  margin-left: -20%;
 }
 
 .radio-label {
-  padding-left: 70px;
+  padding-left: 20px;
   font-weight: normal;
   margin-top: -10px;
+}
+
+.sub-label {
+  font-weight: lighter;
 }
 
 .powered_by {
@@ -272,8 +290,36 @@ footer p
   width: 40%;
 }
 
-.payment button.stripe-button-el {
+.payment button.braintree-button-el {
   color: #000!important;
   background-color: #204d74!important;
   border-color: #122b40!important;
+}
+
+.payment {
+  text-align: center;
+}
+
+.payment .col-form-label {
+  margin: 0px;
+}
+
+.inline-frame {
+  border-radius: 5px;
+}
+
+
+@media (max-width: 450px) {
+  .braintree-form {
+    padding: 20px;
+  }
+}
+
+.token {
+  display: none;
+}
+
+.amount-error {
+  color: #ca0443;
+  padding-bottom: 10px;
 }

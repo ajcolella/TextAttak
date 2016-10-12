@@ -66,8 +66,38 @@ class TextAttakApi < TextAttak
     "Sorry to see you go! #{user.phone} has opted out."
   end
 
-  post '/final_attak' do
+  post '/checkout' do
     puts params
+    if params[:_csrf].nil? || params[:optionsRadios].nil? || params[:nonce].nil? ||
+      params[:name].nil? || (params[:phone].nil? && params[:phones].nil?)
+      raise "Missing Params #{params}" 
+    end
+    phone_numbers = []
+    phone_numbers << params[:phones].join(',') unless params[:phones].nil?
+    phone_numbers << params[:phone] unless params[:phone].nil?
+    phone_numbers.map! { |num| num.gsub(/\+1 \(|\) |-/,"")}
+    phone_numbers.select! { |num| num != "+1 "}
+    type = 
+      case params[:optionsRadios]
+      when "1"
+        [0.99, 8]
+      when "2"
+        [1.25, 15]
+      when "3"
+        [1.75, 30]
+      end
+    amount = type[0] * phone_numbers.length
+    res = Braintree::Transaction.sale(
+      :amount => amount.to_s,
+      :payment_method_nonce => params[:nonce],
+      :options => {
+        :submit_for_settlement => true
+      }
+    )
+    send_attak(phone_numbers, 6904401923, params[:name], params[:message], type[1]) if res.success?
+    puts "***************** Attak sent! #{params[:name]} - #{phone_numbers} *****************"
+    flash[:success] = "Trumpf Dump sent to #{phone_numbers.join(',')}! Check out more text bombs at TextAttak.com"
+    get :index
   end
 
   post '/attak' do

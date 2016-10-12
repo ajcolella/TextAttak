@@ -1,40 +1,39 @@
-<div class="stripe-form col-xs-12" id="stripe-form">
-  <form action="/charge" method="post" class="payment">
-  
+<form id="checkout" method="post" action="/checkout">
+  <div id="braintree-form">
     <div class="form-group row radio-list">
       <label class="col-xs-12 col-form-label">Choose your weapon:</label>
       <label class="form-check-label">
         <div class="col-xs-12">
-          <input type="radio" class="form-check-input" name="optionsRadios" value="1" checked>
-            &nbsp;&nbsp;💣 The Mouth Breather 💣
+          <input type="radio" class="form-check-input" name="optionsRadios" value="1">
+            &nbsp;&nbsp;&nbsp;💣 The Mouth Breather 💣
         </div>
-        <div class="col-xs-12 radio-label">&nbsp;10 messages $0.99</div>
+        <div class="col-xs-12 radio-label">😵😵😵 - 8 messages $0.99</div>
       </label>
       <label class="form-check-label">
         <div class="col-xs-12">
-          <input type="radio" class="form-check-input" name="optionsRadios" value="2">
-          &nbsp;&nbsp;🇨🇳 The China China China 🇨🇳 
+          <input type="radio" class="form-check-input" name="optionsRadios" value="2" checked>
+          &nbsp;&nbsp;🇨🇳🇨🇳 The China China 🇨🇳🇨🇳 
         </div>
-        <div class="col-xs-12 radio-label">&nbsp;15 messages $1.25</div>
+        <div class="col-xs-12 radio-label">🙆🙆🙆 - 15 messages $1.25</div>
       </label>
       <label class="form-check-label">
         <div class="col-xs-12">
           <input type="radio" class="form-check-input" name="optionsRadios" value="3">
-          &nbsp;&nbsp;💩 THE TRUMP DUMP 💩
+          &nbsp;&nbsp;&nbsp;💩 THE TRUMPF DUMP 💩
         </div>
-        <div class="col-xs-12 radio-label">&nbsp;25 messages $1.50</div>
+        <div class="col-xs-12 radio-label">🚀🚀🚀 - 30 messages $1.75</div>
       </label>
     </div>
 
     <div class="form-group row">
-      <label class="col-xs-12 col-form-label">Your Name (required)</label>
-      <input class="form-control" type="text" name="name" maxlength="100" required>
+      <label class="col-xs-12 col-form-label">Your Name  <span class="sub-label">- required</span></label>
+      <input class="form-control" type="text" name="name" maxlength="50">
     </div>
 
     <div class="form-group row phone-input">
-      <label class="col-xs-12 col-form-label">Recipient Phone #s (Send up to 5!)</label>
+      <label class="col-xs-12 col-form-label">Recipient Phone #s <span class="sub-label">- Send up to 5!</span></label> 
       <div class="col-xs-10 phone">
-        <input type="text" class="form-control bfh-phone" name="phone[]" required="true" data-format="+1 (ddd) ddd-dddd">
+        <input type="text" class="form-control bfh-phone" name="phone" data-format="+1 (ddd) ddd-dddd">
       </div>
       <div class="col-xs-2 add-button">
         <button type="button" class="btn btn-default btn-add"><i class="fa fa-plus"></i></button>
@@ -45,25 +44,18 @@
     </div>
 
     <div class="form-group row">
-      <label class="col-xs-12 col-form-label">Message To Your Frenemy</label>
+      <label class="col-xs-12 col-form-label">Message To Your Frenemy <span class="sub-label">- 100 char max</span></label>
       <textarea class="form-control" type="text" name="message" maxlength="100"></textarea>
+      <label class="col-xs-12 col-form-label payment-info">Payment Info</label>
     </div>
-    <div class="form-group row">
-      <label class="col-xs-12 col-form-label" class="amount">
-        <span>Amount: $5.00 USD</span>
-      </label>
+  </div>
+  <div class="form-group row payment">
+    <input class="token form-control" type="text" name="nonce">
+    <label class="col-xs-12 col-form-label amount">
+      <span>Amount: $0.00 USD</span>
+    </label>
+    <div class="col-xs-12">
+      <input type="submit" value="Place Order" class="submit">
     </div>
-    <form id="checkout" method="post" action="/checkout">
-      <div id="payment-form"></div>
-      <input type="submit" value="Pay $10">
-    </form>
-
-    <div class="powered_by">
-      <br><img src="/img/powered_by_stripe.png" class="img-fluid">
-      <br>
-      <img src="https://cdn.shopify.com/s/files/1/0925/4656/t/2/assets/logo.png?9538228193648145613" 
-      class="img-fluid text-attak" alt="textattak">
-    </div>
-
-  </form>
-</div>
+  </div>    
+</form>
