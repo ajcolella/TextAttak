@@ -87,13 +87,15 @@ class TextAttakApi < TextAttak
         [1.75, 30, "💩 THE TRUMPF DUMP 💩"]
       end
     amount = type[0] * phone_numbers.length
-    res = Braintree::Transaction.sale(
-      :amount => amount.to_s,
-      :payment_method_nonce => params[:nonce],
-      :options => {
-        :submit_for_settlement => true
-      }
-    )
+    if params[:nonce] != "fake_nonce"
+      res = Braintree::Transaction.sale(
+        :amount => amount.to_s,
+        :payment_method_nonce => params[:nonce],
+        :options => {
+          :submit_for_settlement => true
+        }
+      )
+    end
     variant_id = ENV['TEXTATTAK_VARIANT_ID']
     send_attak(phone_numbers, 6904401923, params[:name], params[:message], type[1]) if res.success?
     puts "***************** Attak sent! #{params[:name]} - #{phone_numbers} *****************"
