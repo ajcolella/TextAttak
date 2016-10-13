@@ -16,7 +16,12 @@ module Sinatra
 
       initial_text = "#{sender_name.upcase} has sent you a #{attak.name.upcase}!!!"
       opt_out_text = "(To never receive another text from us visit http://textattak.com/optout)"
-      final_text = "\n\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com\n#{note}"
+      final_text = 
+        if variant_id == ENV['TEXTATTAK_VARIANT_ID']
+          "\n\nGet #{sender_name.upcase} back!!! Visit http://trumpfdump.com\n#{note}"
+        else
+          "\n\nGet #{sender_name.upcase} back!!! More attaks at http://textattak.com\n#{note}"
+        end
 
       recipient_numbers.each do |recipient_number|
         # Send warning

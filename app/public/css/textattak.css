@@ -340,3 +340,11 @@ footer p
   background-color: cornflowerblue;
   border-width: 1px; 
 }
+
+.faq {
+  margin-bottom: 0px;
+}
+
+.faq p {
+  font-size: 14px;
+}

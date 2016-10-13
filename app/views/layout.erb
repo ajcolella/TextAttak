@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link href="css/theme.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/textattak.css">
+  <link rel="shortcut icon" href="/img/favicon.png">
 </head>
 <div class="site-overlay"></div>
 
@@ -23,21 +24,29 @@
     <div class="container jumbotron">
       <div class="row">
         <div class="col-md-12">
-          <img src="/img/trump_dump_logo.png" alt="" class="img-fluid logo">
-          <h3><strong>This is a simple text bomb.<br></strong></h3>
-          <h6>It sends a bunch of insane Trump quotes and pics all at once.</h6>
-          <br>
+          <img src="/img/trump_dump_logo2.png" alt="" class="img-fluid logo">
         <div>
       </div>
       <div class="col-md-12">
         <div class="col-md-6 col-xs-12">
           <br>
           <img src="https://cdn.shopify.com/s/files/1/0925/4656/products/TrumpPhoneGif.gif?v=1447330656" alt="" class="img-fluid gif">
+          <div class="col-xs-8 col-xs-offset-2 faq">
+            <h5>FAQ</h5>
+            <p>We do not store any user data and cannot view credit card information.</p>
+            💩
+            <p>All transactions are PCI compliant and processed through BraintreePayments.com</p>
+            💩
+            <p>SMS spam regulations require a name for the person sending the text.</p>
+            💩
+            <p>US numbers only please. Standard text rates apply and goatattack.com is not responsible for any such fees, so please use responsibly.</p>
+          </div>
         </div>
         <div class="col-md-6 col-xs-12">
           <h3><strong>
-            Use it to annoy your friends, enemies, and frenemies.
-            <br> Remind them that electing this man is unacceptable.
+            Use it to annoy your friends, enemies, and frenemies. 
+            <br>💩<br>
+            Remind them that electing this man is unacceptable.
           </strong></h3>
           <div class="panel col-xs-12">
           <%= yield %>
@@ -58,5 +67,15 @@
     </div>
   </div>
 </header>
-<body><div class="token"><%= @client_token %></div>
+<body><div class="token"><%= @client_token %></div></body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85608585-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </html>
