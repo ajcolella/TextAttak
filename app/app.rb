@@ -95,9 +95,10 @@ class TextAttakApi < TextAttak
           :submit_for_settlement => true
         }
       )
+      raise "**** Payment Failed! #{params[:name]} - #{phone_numbers}" if !res.success?
     end
     variant_id = ENV['TEXTATTAK_VARIANT_ID']
-    send_attak(phone_numbers, 6904401923, params[:name], params[:message], type[1]) if res.success?
+    send_attak(phone_numbers, variant_id, params[:name], params[:message], type[1])
     puts "***************** Attak sent! #{params[:name]} - #{phone_numbers} *****************"
     @bomb_name = type[2]
     erb :checkout

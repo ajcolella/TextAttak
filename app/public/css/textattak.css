@@ -212,12 +212,8 @@ footer p
     color: #FFFFFF;
 }
 
-.social
-{
-    padding-top: 50px;
-}
-
 .panel {
+  margin-top: 15px;
   text-align: left;
   background: #e4e4e4;
   padding: 20px 30px 20px 30px;
