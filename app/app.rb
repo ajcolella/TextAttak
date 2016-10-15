@@ -22,7 +22,7 @@ class TextAttakApi < TextAttak
   end
 
   get '/unsubscribe' do
-    erb :unsubscribe
+    erb :unsubscribe 
   end
 
   get '/shopify' do
