@@ -82,7 +82,7 @@ class TextAttakApi < TextAttak
       when "1"
         [0.99, 8, "The Mouth Breather"]
       when "2"
-        [1.25, 15, "🇨🇳🇨🇳 The China China 🇨🇳🇨🇳"]
+        [1.25, 15, "🇨🇳🇨🇳 The China China 🇨🇳🇨🇳"] 
       when "3"
         [1.75, 30, "💩 THE TRUMPF DUMP 💩"]
       end
