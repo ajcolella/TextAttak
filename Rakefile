@@ -3,6 +3,7 @@ require 'sinatra/base'
 require 'sinatra/activerecord/rake'
 require './app/base'
 require 'open-uri'
+require 'nokogiri'
 
 include Sinatra::MessageHelpers
 include Sinatra::TwitterHelpers
@@ -35,9 +36,8 @@ end
 desc "Send Final Text"
 task :final_text do
 
-  init_api_keys
-  # 1. schedule final text every 10 minutes. heroku scheduler
-  # 2. redis queue of all pending texts. schedule ever 30 secs
-  # ShopifyAPI::Order.find(:all, params: {status: 'closed'})
-  puts 'Scheduled Run'
+  init_twitter_keys("ROHAN_REVIVAL")
+
+
+
 end
