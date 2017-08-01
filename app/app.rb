@@ -8,7 +8,7 @@ class TextAttakApi < TextAttak
   before do
     response['Access-Control-Allow-Origin'] = request.env['HTTP_ORIGIN'] # Accept any cross-site requests from the client.
     return if request.options? # Do not require authentication for preflight requests
-    authenticate!(params) unless request.env['HTTP_ORIGIN'] == 'https://checkout.shopify.com' #TODO actual request auth with shopify
+    authenticate!(params) unless request.env['HTTP_ORIGIN'] == 'https://checkout.shopify.com' # actual request auth with shopify
     init_api_keys
   end
 
@@ -25,27 +25,14 @@ class TextAttakApi < TextAttak
     erb :unsubscribe 
   end
 
-  get '/shopify' do
-    byebug if ENV['RACK_ENV'] == 'development'
-    begin
-      ShopifyAPI::Product.all.map(&:variants).flatten.map(&:attributes).each { |var| puts var['sku'], var['id'] }
-    rescue
-      'OOPs'
-    end
-  end
-
-  get '/twitter' do
-    byebug if ENV['RACK_ENV'] == 'development'
-  end
-
   post '/new_attak' do
     raise "You didn't say the magic word!" if params[:password] != ENV['TA_ATTAK_SECRET'] || params.nil?
     raise 'You must name the Attak' if params[:name].empty?
     raise 'You specify how many messages in the attak' if params[:count].empty?
     raise 'This attak needs a variant_id from schtopify' if params[:variant_id].empty?
-    # TODO validate image_url mime types
+    #  validate image_url mime types
     ordered = params[:ordered] || 0
-    paired = params[:paired] || 0 # TODO not implemented yet
+    paired = params[:paired] || 0 #  not implemented yet
     puts ordered, '***ORDERED***'
     if attak = Attak.where(variant_id: params[:variant_id]).first_or_create
       attak.update(name: params[:name], count: params[:count], ordered: ordered, paired: paired)
@@ -105,20 +92,20 @@ class TextAttakApi < TextAttak
   end
 
   post '/attak' do
-    raise 'TODO missing params fail' if params[:id].nil?
+    raise 'Missing params fail' if params[:id].nil?
     begin
       order = ShopifyAPI::Order.first(id: params[:id])
     rescue
-      puts 'TODO Shopify API fail'
+      puts 'Shopify API fail'
     end
-    raise 'TODO Order has been fulfilled' if order.nil?
+    raise 'Order has been fulfilled' if order.nil?
     msg_attributes = order.attributes['note_attributes']
     line_items = order.attributes['line_items']
     
     # Loop through line items for variant ids
     line_items.each do |item|
       if item.fulfillment_status == 'fulfilled'
-        raise 'Order already fulfilled' # TODO
+        raise 'Order already fulfilled' # 
       else
         recipient_numbers = []
         item.quantity.times do |i|
@@ -143,7 +130,7 @@ class TextAttakApi < TextAttak
             ""
           end
 
-        message_success = send_attak(recipient_numbers, item.variant_id, sender_name, note) # TODO check successes
+        message_success = send_attak(recipient_numbers, item.variant_id, sender_name, note) #  check successes
         fulfill_order(order, item)
       end
     end
